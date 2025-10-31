@@ -1,14 +1,12 @@
 import { shuffle } from '../utils/formatters.js';
 
-function initInterleaving(unit, root, { recordInterleavingSession, getInterleavingHistory }) {
-  if (!root) return;
-
-  const strandContainer = root.querySelector('[data-role="interleaving-strands"]');
-  const generateBtn = root.querySelector('[data-role="build-interleaving"]');
-  const planOutput = root.querySelector('[data-role="interleaving-plan"]');
-  const comboList = root.querySelector('[data-role="combo-suggestions"]');
-  const historyList = root.querySelector('[data-role="interleaving-history"]');
-  const selectionInfo = root.querySelector('[data-role="interleaving-selection"]');
+function initInterleaving(unit, { recordInterleavingSession, getInterleavingHistory }) {
+  const strandContainer = document.getElementById('interleavingStrands');
+  const generateBtn = document.getElementById('buildInterleaving');
+  const planOutput = document.getElementById('interleavingPlan');
+  const comboList = document.getElementById('comboSuggestions');
+  const historyList = document.getElementById('interleavingHistory');
+  const selectionInfo = document.getElementById('interleavingSelectionInfo');
 
   if (!strandContainer || !generateBtn || !planOutput || !comboList || !historyList) {
     return;
@@ -60,8 +58,7 @@ function initInterleaving(unit, root, { recordInterleavingSession, getInterleavi
 
   function updateSelectionInfo() {
     if (!selectionInfo) return;
-    const chosen = selectedStrands().filter(Boolean);
-    const count = chosen.length;
+    const count = selectedStrands().length;
     selectionInfo.textContent = count
       ? `Mixing ${count} strand${count === 1 ? '' : 's'} — aim for at least two.`
       : 'Choose at least two strands to unlock an interleaved circuit.';
@@ -125,7 +122,7 @@ function initInterleaving(unit, root, { recordInterleavingSession, getInterleavi
   }
 
   generateBtn.addEventListener('click', () => {
-    const chosen = selectedStrands().filter(Boolean);
+    const chosen = selectedStrands();
     if (chosen.length < 2) {
       planOutput.innerHTML =
         '<p class="empty">Pick at least two strands so your brain practises switching and connecting ideas.</p>';
@@ -133,14 +130,12 @@ function initInterleaving(unit, root, { recordInterleavingSession, getInterleavi
     }
     const steps = buildSteps(chosen);
     renderPlan(steps);
-    if (typeof recordInterleavingSession === 'function' && typeof getInterleavingHistory === 'function') {
-      const history = recordInterleavingSession({
-        strands: chosen.map((strand) => strand.id),
-        steps: steps.length,
-        timestamp: Date.now(),
-      });
-      renderHistory(history);
-    }
+    const history = recordInterleavingSession({
+      strands: chosen.map((strand) => strand.id),
+      steps: steps.length,
+      timestamp: Date.now(),
+    });
+    renderHistory(history);
   });
 
   strandContainer.addEventListener('change', updateSelectionInfo);
@@ -148,9 +143,7 @@ function initInterleaving(unit, root, { recordInterleavingSession, getInterleavi
   renderStrands();
   renderCombos();
   updateSelectionInfo();
-  if (typeof getInterleavingHistory === 'function') {
-    renderHistory(getInterleavingHistory());
-  }
+  renderHistory(getInterleavingHistory());
 }
 
 export default initInterleaving;

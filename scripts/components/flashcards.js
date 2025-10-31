@@ -1,19 +1,19 @@
-import { formatDate, shuffle } from '../utils/formatters.js';
+import {
+  formatDate,
+  shuffle,
+} from '../utils/formatters.js';
 
 function initFlashcards(
   unit,
-  root,
   { getFlashcards, addFlashcard, getFlashcardProgress, updateFlashcardProgress }
 ) {
-  if (!root) return;
-
-  const deck = root.querySelector('[data-role="flashcard-deck"]');
-  const form = root.querySelector('[data-role="flashcard-form"]');
-  const promptField = root.querySelector('[data-role="flashcard-prompt"]');
-  const answerField = root.querySelector('[data-role="flashcard-answer"]');
-  const hookField = root.querySelector('[data-role="flashcard-hook"]');
-  const sessionInfo = root.querySelector('[data-role="flashcard-session-info"]');
-  const filterButtons = root.querySelectorAll('[data-flashcard-filter]');
+  const deck = document.getElementById('flashcardDeck');
+  const form = document.getElementById('flashcardForm');
+  const promptField = document.getElementById('flashcardPrompt');
+  const answerField = document.getElementById('flashcardAnswer');
+  const hookField = document.getElementById('flashcardHook');
+  const sessionInfo = document.getElementById('flashcardSessionInfo');
+  const filterButtons = document.querySelectorAll('[data-flashcard-filter]');
 
   let currentFilter = 'due';
 
@@ -22,36 +22,24 @@ function initFlashcards(
   }
 
   function enrichCards() {
-    const customCards = typeof getFlashcards === 'function'
-      ? getFlashcards().map((card) => ({
-          ...card,
-          source: 'custom',
-          elaborationPrompt:
-            card.hook || 'Write the explanation in your own words and jot why the answer must be true.',
-          mnemonic: card.hook || 'Craft a quick image or phrase that links the prompt to the answer.',
-        }))
-      : [];
+    const custom = getFlashcards().map((card) => ({
+      ...card,
+      source: 'custom',
+      elaborationPrompt:
+        card.hook ||
+        'Write the explanation in your own words and jot why the answer must be true.',
+      mnemonic: card.hook || 'Craft a quick image or phrase that links the prompt to the answer.',
+    }));
 
-    const canon = (unit.flashcards ?? []).map((card) => ({
+    const canon = unit.flashcards.map((card) => ({
       ...card,
       source: 'unit',
     }));
 
-    return [...canon, ...customCards];
+    return [...canon, ...custom];
   }
 
   function describeProgress(card) {
-    if (typeof getFlashcardProgress !== 'function') {
-      return {
-        nextReview: Date.now(),
-        intervalDays: 1,
-        reviews: 0,
-        ease: 2.5,
-        dueNow: true,
-        nextLabel: 'Due now',
-      };
-    }
-
     const progress = getFlashcardProgress(card.id) ?? {
       nextReview: Date.now(),
       intervalDays: 1,
@@ -70,7 +58,9 @@ function initFlashcards(
   function cardTemplate(card, progress) {
     const quickCheck = shuffle([...(card.quickChecks ?? []), card.prompt]).slice(0, 1)[0];
     return `
-      <article class="flashcard ${progress.dueNow ? 'flashcard--due' : ''}" data-card-id="${card.id}">
+      <article class="flashcard ${progress.dueNow ? 'flashcard--due' : ''}" data-card-id="${
+        card.id
+      }">
         <div class="flashcard__inner">
           <div class="flashcard__front">
             <h4>Prompt</h4>
@@ -101,7 +91,7 @@ function initFlashcards(
       return cards.filter((card) => describeProgress(card).dueNow);
     }
     if (currentFilter === 'new') {
-      return cards.filter((card) => !getFlashcardProgress || !getFlashcardProgress(card.id));
+      return cards.filter((card) => !getFlashcardProgress(card.id));
     }
     return cards;
   }
@@ -110,7 +100,9 @@ function initFlashcards(
     const cards = enrichCards();
     const filtered = applyFilter(cards);
     const inPlay = filtered.length ? filtered : cards;
-    const template = inPlay.map((card) => cardTemplate(card, describeProgress(card))).join('');
+    const template = inPlay
+      .map((card) => cardTemplate(card, describeProgress(card)))
+      .join('');
     deck.innerHTML = template || '<p class="empty">Add cards or adjust the filter to start a session.</p>';
 
     const dueCount = cards.filter((card) => describeProgress(card).dueNow).length;
@@ -122,17 +114,13 @@ function initFlashcards(
   }
 
   deck.addEventListener('click', (event) => {
-    const target = event.target;
-    if (!(target instanceof HTMLElement)) return;
-    const card = target.closest('.flashcard');
+    const card = event.target.closest('.flashcard');
     if (!card) return;
 
-    if (target.matches('[data-review]')) {
-      const outcome = target.getAttribute('data-review');
+    if (event.target.matches('[data-review]')) {
+      const outcome = event.target.getAttribute('data-review');
       const cardId = card.getAttribute('data-card-id');
-      if (outcome && cardId && typeof updateFlashcardProgress === 'function') {
-        updateFlashcardProgress(cardId, outcome);
-      }
+      updateFlashcardProgress(cardId, outcome);
       render();
       return;
     }
@@ -145,7 +133,7 @@ function initFlashcards(
     const prompt = promptField.value.trim();
     const answer = answerField.value.trim();
     const hook = hookField ? hookField.value.trim() : '';
-    if (!prompt || !answer || typeof addFlashcard !== 'function') return;
+    if (!prompt || !answer) return;
     addFlashcard({ prompt, answer, hook });
     form.reset();
     render();
