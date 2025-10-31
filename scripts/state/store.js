@@ -1,6 +1,6 @@
-const STORAGE_KEY = 'ls1a-study-companion-v3';
+const STORAGE_KEY = 'ls1a-study-companion-v2';
 
-const defaultContextState = {
+const defaultState = {
   uploads: [],
   flashcards: [],
   reflections: [],

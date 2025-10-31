@@ -1,39 +1,27 @@
 import { shuffle } from '../utils/formatters.js';
 
-function initPractice(unit, root) {
-  if (!root) return;
-
-  const form = root.querySelector('[data-role="practice-form"]');
-  const results = root.querySelector('[data-role="practice-results"]');
-  const elaboration = root.querySelector('[data-role="practice-elaboration"]');
+function initPractice(unit) {
+  const form = document.getElementById('practiceForm');
+  const results = document.getElementById('practiceResults');
+  const elaboration = document.getElementById('practiceElaboration');
 
   if (!form || !results) {
     return;
   }
 
-  const questions = unit.practiceQuestions ?? [];
-  const QUESTIONS_PER_ROUND = Math.min(4, questions.length || 0) || questions.length || 0;
-  let pendingQuestions = shuffle([...questions]);
+  const QUESTIONS_PER_ROUND = Math.min(4, unit.practiceQuestions.length);
+  let pendingQuestions = shuffle([...unit.practiceQuestions]);
   let activeQuestions = [];
 
   function drawNextSet() {
-    if (!questions.length) {
-      activeQuestions = [];
-      return;
-    }
     if (pendingQuestions.length < QUESTIONS_PER_ROUND) {
-      pendingQuestions = shuffle([...questions]);
+      pendingQuestions = shuffle([...unit.practiceQuestions]);
     }
-    activeQuestions = pendingQuestions.splice(0, QUESTIONS_PER_ROUND || questions.length);
+    activeQuestions = pendingQuestions.splice(0, QUESTIONS_PER_ROUND);
   }
 
   function renderQuiz() {
     drawNextSet();
-
-    if (!activeQuestions.length) {
-      form.innerHTML = '<p class="empty">Add practice questions to this chapter to generate quizzes.</p>';
-      return;
-    }
 
     form.innerHTML =
       activeQuestions
@@ -73,8 +61,6 @@ function initPractice(unit, root) {
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    if (!activeQuestions.length) return;
-
     const formData = new FormData(form);
     let correct = 0;
     let total = 0;
@@ -87,24 +73,20 @@ function initPractice(unit, root) {
         const isCorrect = Number(response) === question.answer;
         if (isCorrect) correct += 1;
         feedback.push(
-          `<p><strong>${question.prompt}</strong><br>${
-            isCorrect ? '✅ Correct.' : '❌ Not quite.'
-          } ${question.explanation}</p>`
-        );
-      } else {
-        const rubricHits = question.rubric
-          ? question.rubric.filter((point) =>
-              (response || '')
-                .toLowerCase()
-                .includes(point.split(' ')[0].toLowerCase())
-            ).length
-          : 0;
+      `<p><strong>${question.prompt}</strong><br>${
+        isCorrect ? '✅ Correct.' : '❌ Not quite.'
+      } ${question.explanation}</p>`
+      );
+    } else {
+        const rubricHits = question.rubric.filter((point) =>
+          (response || '')
+            .toLowerCase()
+            .includes(point.split(' ')[0].toLowerCase())
+        ).length;
         feedback.push(
-          `<p><strong>${question.prompt}</strong><br>Look for: ${(question.rubric ?? [])
+          `<p><strong>${question.prompt}</strong><br>Look for: ${question.rubric
             .map((point) => `<span class="chip">${point}</span>`)
-            .join(' ')}<br>You addressed <strong>${rubricHits}</strong> of ${
-            question.rubric?.length ?? 0
-          } key ideas.</p>`
+            .join(' ')}<br>You addressed <strong>${rubricHits}</strong> of ${question.rubric.length} key ideas.</p>`
         );
       }
     });

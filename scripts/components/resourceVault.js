@@ -1,16 +1,16 @@
-function initResourceVault(root, store) {
-  if (!root) return;
+import { appendUploads, removeUpload, getUploads } from '../state/store.js';
 
-  const dropZone = root.querySelector('[data-role="drop-zone"]');
-  const fileInput = root.querySelector('[data-role="file-input"]');
-  const list = root.querySelector('[data-role="uploaded-list"]');
+function initResourceVault() {
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  const list = document.getElementById('uploadedList');
 
   if (!dropZone || !fileInput || !list) {
     return;
   }
 
   function renderUploads() {
-    const uploads = store.getUploads();
+    const uploads = getUploads();
 
     if (!uploads.length) {
       list.innerHTML = '<li class="uploader__item">No resources yet. Drop files to start curating your study vault.</li>';
@@ -44,7 +44,7 @@ function initResourceVault(root, store) {
       addedAt: new Date().toISOString(),
     }));
 
-    store.appendUploads(mapped);
+    appendUploads(mapped);
     renderUploads();
   }
 
@@ -85,7 +85,7 @@ function initResourceVault(root, store) {
     const { target } = event;
     const id = target.dataset?.remove;
     if (!id) return;
-    store.removeUpload(id);
+    removeUpload(id);
     renderUploads();
   });
 

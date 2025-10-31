@@ -1,21 +1,19 @@
-function initPlanner(unit, root, { logStudySession, updateReminderPreferences, getPlannerState }) {
-  if (!root) return;
-
-  const form = root.querySelector('[data-role="planner-form"]');
-  const durationField = root.querySelector('[data-role="planner-duration"]');
-  const focusField = root.querySelector('[data-role="planner-focus"]');
-  const interleaveField = root.querySelector('[data-role="planner-interleave"]');
-  const restField = root.querySelector('[data-role="planner-rest"]');
-  const feedback = root.querySelector('[data-role="planner-feedback"]');
-  const historyList = root.querySelector('[data-role="planner-history"]');
-  const streakBadge = root.querySelector('[data-role="planner-streak"]');
-  const reminderToggle = root.querySelector('[data-role="planner-reminders"]');
-  const xpBadge = root.querySelector('[data-role="planner-xp"]');
-  const pacingList = root.querySelector('[data-role="planner-pacing"]');
-  const wellbeingList = root.querySelector('[data-role="planner-wellbeing"]');
-  const reminderList = root.querySelector('[data-role="planner-reminder-list"]');
-  const badgeList = root.querySelector('[data-role="planner-badges"]');
-  const xpRuleList = root.querySelector('[data-role="planner-xp-rules"]');
+function initPlanner(unit, { logStudySession, updateReminderPreferences, getPlannerState }) {
+  const form = document.getElementById('plannerForm');
+  const durationField = document.getElementById('plannerDuration');
+  const focusField = document.getElementById('plannerFocus');
+  const interleaveField = document.getElementById('plannerInterleave');
+  const restField = document.getElementById('plannerRest');
+  const feedback = document.getElementById('plannerFeedback');
+  const historyList = document.getElementById('plannerHistory');
+  const streakBadge = document.getElementById('plannerStreak');
+  const reminderToggle = document.getElementById('plannerReminders');
+  const xpBadge = document.getElementById('plannerXp');
+  const pacingList = document.getElementById('plannerPacing');
+  const wellbeingList = document.getElementById('plannerWellbeing');
+  const reminderList = document.getElementById('plannerReminderList');
+  const badgeList = document.getElementById('plannerBadges');
+  const xpRuleList = document.getElementById('plannerXpRules');
 
   if (
     !form ||
@@ -56,7 +54,6 @@ function initPlanner(unit, root, { logStudySession, updateReminderPreferences, g
   }
 
   function renderState() {
-    if (typeof getPlannerState !== 'function') return;
     const planner = getPlannerState();
     streakBadge.textContent = `${planner.streak} day streak`;
     reminderToggle.checked = planner.remindersEnabled;
@@ -100,18 +97,14 @@ function initPlanner(unit, root, { logStudySession, updateReminderPreferences, g
       xp,
       loggedAt: Date.now(),
     };
-    if (typeof logStudySession === 'function') {
-      logStudySession(session);
-    }
+    logStudySession(session);
     feedback.textContent = `Logged! Keep the streak going — that was worth ${xp} XP.`;
     form.reset();
     renderState();
   });
 
   reminderToggle.addEventListener('change', () => {
-    if (typeof updateReminderPreferences === 'function') {
-      updateReminderPreferences(reminderToggle.checked);
-    }
+    updateReminderPreferences(reminderToggle.checked);
   });
 
   renderGuidance();

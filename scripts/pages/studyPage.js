@@ -9,7 +9,6 @@ import initInterleaving from '../components/interleaving.js';
 import initElaboration from '../components/elaboration.js';
 import initMnemonics from '../components/mnemonics.js';
 import initPlanner from '../components/planner.js';
-import studyTemplate from './studyTemplate.js';
 
 function populateHero(root, unit) {
   const title = root.querySelector('[data-role="unit-title"]');
@@ -23,9 +22,13 @@ function populateHero(root, unit) {
 }
 
 function createStudyPage(container, unit, store) {
-  if (!container || !unit) return;
+  const template = document.getElementById('study-page-template');
+  if (!template || !container || !unit) return;
 
-  container.innerHTML = studyTemplate;
+  container.innerHTML = '';
+  const fragment = template.content.cloneNode(true);
+  container.appendChild(fragment);
+
   const root = container.querySelector('.study-page');
   if (!root) {
     return;

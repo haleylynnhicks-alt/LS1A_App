@@ -1,11 +1,9 @@
-function initStudyGuide(unit, root, { getUploads }) {
-  if (!root) return;
-
-  const generateBtn = root.querySelector('[data-role="generate-guide"]');
-  const output = root.querySelector('[data-role="study-guide-output"]');
-  const notesField = root.querySelector('[data-role="custom-notes"]');
-  const goalField = root.querySelector('[data-role="learning-goal"]');
-  const exportBtn = root.querySelector('[data-role="export-guide"]');
+function initStudyGuide(unit, getUploads) {
+  const generateBtn = document.getElementById('generateGuide');
+  const output = document.getElementById('studyGuideOutput');
+  const notesField = document.getElementById('customNotes');
+  const goalField = document.getElementById('learningGoal');
+  const exportBtn = document.getElementById('exportGuide');
 
   if (!generateBtn || !output || !notesField || !goalField || !exportBtn) {
     return;
@@ -15,8 +13,7 @@ function initStudyGuide(unit, root, { getUploads }) {
     const goal = goalField.value.trim();
     const notes = notesField.value.trim();
 
-    const uploads = typeof getUploads === 'function' ? getUploads() : [];
-    const resources = uploads
+    const resources = getUploads()
       .map((item) => `• ${item.name} (${new Date(item.addedAt).toLocaleDateString()})`)
       .join('<br/>');
 
@@ -27,12 +24,12 @@ function initStudyGuide(unit, root, { getUploads }) {
     const studyPlan = `
       <section>
         <h4>Focus Goal</h4>
-        <p>${goal || unit.defaultGoal || 'Solidify the key story arc for this chapter.'}</p>
+        <p>${goal || 'Solidify qualitative and quantitative control of the lac operon.'}</p>
       </section>
       <section>
         <h4>Concept Backbone</h4>
         <ol>
-          ${(unit.conceptFlow?.steps ?? [])
+          ${unit.conceptFlow.steps
             .map((step) => `<li><strong>${step.heading}:</strong> ${step.detail}</li>`)
             .join('')}
         </ol>
@@ -40,19 +37,17 @@ function initStudyGuide(unit, root, { getUploads }) {
       <section>
         <h4>Mechanistic Deep Dive</h4>
         <ul>
-          ${(unit.anchorNotes ?? []).map((note) => `<li>${note}</li>`).join('')}
+          ${unit.anchorNotes.map((note) => `<li>${note}</li>`).join('')}
         </ul>
       </section>
-      ${(unit.studyEvidence ?? [])
-        .map(
-          (item) => `
-            <section>
-              <h4>${item.heading}</h4>
-              <p>${item.detail}</p>
-            </section>
-          `
-        )
-        .join('')}
+      <section>
+        <h4>Experimental Evidence to Review</h4>
+        <ul>
+          <li>Revisit EMSA setup and interpret K<sub>D</sub> using binding curves.</li>
+          <li>Sketch CAP–cAMP bend and RNA polymerase recruitment geometry.</li>
+          <li>Draw AND gate matrix for glucose/lactose combinations plus one mutation.</li>
+        </ul>
+      </section>
       ${
         combos.length
           ? `<section>
@@ -108,7 +103,9 @@ function initStudyGuide(unit, root, { getUploads }) {
       <section>
         <h4>Reflection Prompts</h4>
         <ul>
-          ${(unit.reflectionPrompts ?? []).map((prompt) => `<li>${prompt}</li>`).join('')}
+          <li>Explain how inducer binding shifts the LacI conformational equilibrium.</li>
+          <li>Quantitatively relate EMSA data to binding constants.</li>
+          <li>Predict transcription outcomes for lacI-null, lacO<sup>-</sup>, and cyaA-null mutants.</li>
         </ul>
       </section>
       ${notes ? `<section><h4>Your Notes</h4><p>${notes}</p></section>` : ''}
