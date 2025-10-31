@@ -32,8 +32,8 @@
       </div>
       <div class="hero__meta">
         <div class="chip">Smart Uploads</div>
-        <div class="chip">Adaptive Quizzes</div>
-        <div class="chip">Evidence-based Study Loops</div>
+        <div class="chip">Interleaved Practice</div>
+        <div class="chip">Mnemonic & Visual Labs</div>
       </div>
     </header>
 
@@ -98,6 +98,34 @@
         </div>
       </section>
 
+      <section class="panel" aria-labelledby="interleaving-studio">
+        <div class="panel__header">
+          <h2 id="interleaving-studio">Interleaving Studio</h2>
+          <p>
+            Pick at least two strands to weave. Switching forces your brain to
+            connect mechanisms, data, and experiments instead of siloing them.
+          </p>
+        </div>
+        <div class="interleaving">
+          <div class="interleaving__strands" id="interleavingStrands" aria-live="polite"></div>
+          <div class="interleaving__controls">
+            <p id="interleavingSelectionInfo" class="hint"></p>
+            <button id="buildInterleaving" class="btn btn--primary">Build Mixed Session</button>
+            <div id="interleavingPlan" class="interleaving__plan" aria-live="polite"></div>
+          </div>
+        </div>
+        <div class="interleaving__support">
+          <section>
+            <h3>Ready-made combos</h3>
+            <div id="comboSuggestions" class="interleaving__combos"></div>
+          </section>
+          <section>
+            <h3>Recent mixes</h3>
+            <ul id="interleavingHistory" class="interleaving__history" aria-live="polite"></ul>
+          </section>
+        </div>
+      </section>
+
       <section class="panel" aria-labelledby="flashcards">
         <div class="panel__header">
           <h2 id="flashcards">Flashcards &amp; Retrieval Practice</h2>
@@ -105,6 +133,20 @@
             Review each concept on one side and the full explanation on the other.
             Add your own cards to reteach the story in your own words.
           </p>
+        </div>
+        <div class="flashcards__header">
+          <div id="flashcardSessionInfo" class="flashcards__session"></div>
+          <div class="flashcards__filters" role="group" aria-label="Flashcard filter">
+            <button type="button" class="btn btn--ghost is-active" data-flashcard-filter="due">
+              Due now
+            </button>
+            <button type="button" class="btn btn--ghost" data-flashcard-filter="new">
+              New cards
+            </button>
+            <button type="button" class="btn btn--ghost" data-flashcard-filter="all">
+              All cards
+            </button>
+          </div>
         </div>
         <div class="flashcards" id="flashcardDeck"></div>
         <form class="flashcards__form" id="flashcardForm">
@@ -116,6 +158,10 @@
           <div class="form-field">
             <label for="flashcardAnswer">Explanation</label>
             <textarea id="flashcardAnswer" required></textarea>
+          </div>
+          <div class="form-field">
+            <label for="flashcardHook">Mnemonic hook (optional)</label>
+            <input id="flashcardHook" placeholder="e.g. CAP = Cradle for polymerase" />
           </div>
           <button class="btn btn--primary">Add Card</button>
         </form>
@@ -131,6 +177,80 @@
         </div>
         <form id="practiceForm" class="practice"></form>
         <div id="practiceResults" class="practice__results" aria-live="polite"></div>
+        <div id="practiceElaboration" class="practice__elaboration" aria-live="polite"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="elaboration-lab">
+        <div class="panel__header">
+          <h2 id="elaboration-lab">Elaboration &amp; Self-Explanation Lab</h2>
+          <p>
+            Choose a prompt, answer it in your own words, and layer on follow-up
+            questions so you explain why the answer makes sense.
+          </p>
+        </div>
+        <div class="elaboration">
+          <div class="elaboration__controls">
+            <label for="elaborationSelect" class="sr-only">Pick elaborative prompt</label>
+            <select id="elaborationSelect"></select>
+            <button id="elaborationRoll" class="btn btn--secondary" type="button">
+              Surprise me
+            </button>
+          </div>
+          <div class="elaboration__workspace">
+            <h3>Prompt</h3>
+            <p id="elaborationDetails"></p>
+            <h4>Follow-up moves</h4>
+            <ul id="elaborationFollowUps"></ul>
+            <label for="elaborationReflection">Your explanation</label>
+            <textarea id="elaborationReflection" rows="5"></textarea>
+            <p class="hint">Explain aloud or write a short paragraph. Check off follow-ups as you go.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="mnemonic-lab">
+        <div class="panel__header">
+          <h2 id="mnemonic-lab">Mnemonic &amp; Visual Lab</h2>
+          <p>
+            Tie concepts to vivid cues and sketch the system so you can recall it
+            quickly and explain it to someone else.
+          </p>
+        </div>
+        <div class="mnemonic">
+          <div class="mnemonic__grid">
+            <section>
+              <h3>Memory hooks</h3>
+              <div id="mnemonicKeyTerms" class="mnemonic__cards"></div>
+            </section>
+            <section>
+              <h3>Imagery prompts</h3>
+              <div id="mnemonicImagery" class="mnemonic__cards"></div>
+            </section>
+          </div>
+          <div class="mnemonic__concept">
+            <h3>Concept map</h3>
+            <div id="conceptMapCanvas" class="concept-map" role="img" aria-label="Lac operon concept map"></div>
+            <div id="conceptMapDetails" class="concept-map__details"></div>
+          </div>
+          <div class="mnemonic__custom">
+            <form id="mnemonicForm" class="mnemonic__form">
+              <h3>Make your own mnemonic</h3>
+              <div class="form-field">
+                <label for="mnemonicTerm">Term</label>
+                <input id="mnemonicTerm" required />
+              </div>
+              <div class="form-field">
+                <label for="mnemonicPhrase">Phrase or image</label>
+                <textarea id="mnemonicPhrase" rows="3" required></textarea>
+              </div>
+              <button class="btn btn--secondary">Save mnemonic</button>
+            </form>
+            <div class="mnemonic__custom-list">
+              <h3>Your collection</h3>
+              <ul id="mnemonicCustomList"></ul>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="panel" aria-labelledby="tutor-mode">
@@ -188,6 +308,74 @@
             </div>
           </div>
           <div class="synthesis__output" id="synthesisOutput"></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="study-planner">
+        <div class="panel__header">
+          <h2 id="study-planner">Study Rhythm Planner</h2>
+          <p>
+            Space your work, mix in rest, and keep motivation high with quick
+            logs, reminder toggles, and XP-style nudges.
+          </p>
+        </div>
+        <div class="planner">
+          <form id="plannerForm" class="planner__form">
+            <h3>Log a focused burst</h3>
+            <div class="form-field">
+              <label for="plannerDuration">Minutes</label>
+              <input id="plannerDuration" type="number" min="10" step="5" value="25" />
+            </div>
+            <div class="form-field">
+              <label for="plannerFocus">Focus highlight</label>
+              <input id="plannerFocus" placeholder="e.g. EMSA + promoter logic" required />
+            </div>
+            <div class="form-field">
+              <label for="plannerInterleave"># of strands mixed</label>
+              <input id="plannerInterleave" type="number" min="1" value="2" />
+            </div>
+            <label class="planner__checkbox">
+              <input id="plannerRest" type="checkbox" />
+              I took (or will take) a 5-minute reset after this burst
+            </label>
+            <button class="btn btn--primary" type="submit">Log session</button>
+            <p id="plannerFeedback" class="planner__feedback" aria-live="polite"></p>
+          </form>
+          <aside class="planner__summary">
+            <div class="planner__stats">
+              <p id="plannerStreak" class="planner__streak"></p>
+              <p id="plannerXp" class="planner__xp"></p>
+            </div>
+            <label class="planner__toggle">
+              <input id="plannerReminders" type="checkbox" checked />
+              Enable gentle reminders for spacing and uploads
+            </label>
+            <div class="planner__history">
+              <h3>Recent bursts</h3>
+              <ul id="plannerHistory"></ul>
+            </div>
+          </aside>
+        </div>
+        <div class="planner__guidance">
+          <section>
+            <h3>Spacing playbook</h3>
+            <ul id="plannerPacing"></ul>
+          </section>
+          <section>
+            <h3>Wellbeing cues</h3>
+            <ul id="plannerWellbeing"></ul>
+          </section>
+          <section>
+            <h3>Reminders</h3>
+            <ul id="plannerReminderList"></ul>
+          </section>
+          <section>
+            <h3>Gamified boosts</h3>
+            <h4>XP</h4>
+            <ul id="plannerXpRules"></ul>
+            <h4>Badges to chase</h4>
+            <ul id="plannerBadges"></ul>
+          </section>
         </div>
       </section>
     </main>

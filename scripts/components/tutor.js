@@ -12,6 +12,7 @@ function initTutor(unit, { addReflection }) {
   }
 
   let currentIndex = 0;
+  const elaborativePool = unit.elaborativePrompts ?? [];
 
   function renderList() {
     stepList.innerHTML = unit.tutorSteps
@@ -59,9 +60,20 @@ function initTutor(unit, { addReflection }) {
     });
 
     const success = hits >= Math.max(1, Math.ceil(step.checkpoints.length * 0.6));
+    const elaborativePrompt =
+      elaborativePool[Math.floor(Math.random() * elaborativePool.length)] ?? null;
     feedback.innerHTML = `
       <p>${success ? 'Great reasoning! ✅' : 'Nice start — refine further.'}</p>
       <p>${step.feedback}</p>
+      ${
+        elaborativePrompt
+          ? `<div class="tutor__elaboration">
+                <h4>Extend it:</h4>
+                <p>${elaborativePrompt.question}</p>
+                <ul>${elaborativePrompt.followUps.map((item) => `<li>${item}</li>`).join('')}</ul>
+             </div>`
+          : ''
+      }
     `;
 
     if (currentIndex < unit.tutorSteps.length - 1) {

@@ -1,43 +1,63 @@
+import { shuffle } from '../utils/formatters.js';
+
 function initPractice(unit) {
   const form = document.getElementById('practiceForm');
   const results = document.getElementById('practiceResults');
+  const elaboration = document.getElementById('practiceElaboration');
 
   if (!form || !results) {
     return;
   }
 
-  form.innerHTML =
-    unit.practiceQuestions
-      .map((question, index) => {
-        if (question.type === 'mc') {
+  const QUESTIONS_PER_ROUND = Math.min(4, unit.practiceQuestions.length);
+  let pendingQuestions = shuffle([...unit.practiceQuestions]);
+  let activeQuestions = [];
+
+  function drawNextSet() {
+    if (pendingQuestions.length < QUESTIONS_PER_ROUND) {
+      pendingQuestions = shuffle([...unit.practiceQuestions]);
+    }
+    activeQuestions = pendingQuestions.splice(0, QUESTIONS_PER_ROUND);
+  }
+
+  function renderQuiz() {
+    drawNextSet();
+
+    form.innerHTML =
+      activeQuestions
+        .map((question, index) => {
+          if (question.type === 'mc') {
+            return `
+              <fieldset class="practice__question">
+                <legend><h3>Q${index + 1}. ${question.prompt}</h3></legend>
+                <div class="practice__options">
+                  ${question.options
+                    .map(
+                      (option, optIndex) => `
+                        <label>
+                          <input type="radio" name="${question.id}" value="${optIndex}" required />
+                          <span>${option}</span>
+                        </label>
+                      `
+                    )
+                    .join('')}
+                </div>
+              </fieldset>
+            `;
+          }
+
           return `
             <fieldset class="practice__question">
               <legend><h3>Q${index + 1}. ${question.prompt}</h3></legend>
-              <div class="practice__options">
-                ${question.options
-                  .map(
-                    (option, optIndex) => `
-                      <label>
-                        <input type="radio" name="${question.id}" value="${optIndex}" required />
-                        <span>${option}</span>
-                      </label>
-                    `
-                  )
-                  .join('')}
-              </div>
+              <textarea name="${question.id}" placeholder="Explain your reasoning..." required></textarea>
             </fieldset>
           `;
-        }
+        })
+        .join('') +
+      '<button class="btn btn--primary" type="submit">Check Answers</button>';
+  }
 
-        return `
-          <fieldset class="practice__question">
-            <legend><h3>Q${index + 1}. ${question.prompt}</h3></legend>
-            <textarea name="${question.id}" placeholder="Explain your reasoning..." required></textarea>
-          </fieldset>
-        `;
-      })
-      .join('') +
-    '<button class="btn btn--primary" type="submit">Check Answers</button>';
+  renderQuiz();
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -46,18 +66,18 @@ function initPractice(unit) {
     let total = 0;
     const feedback = [];
 
-    unit.practiceQuestions.forEach((question) => {
+    activeQuestions.forEach((question) => {
       const response = formData.get(question.id);
       if (question.type === 'mc') {
         total += 1;
         const isCorrect = Number(response) === question.answer;
         if (isCorrect) correct += 1;
         feedback.push(
-          `<p><strong>${question.prompt}</strong><br>${
-            isCorrect ? '✅ Correct.' : '❌ Not quite.'
-          } ${question.explanation}</p>`
-        );
-      } else {
+      `<p><strong>${question.prompt}</strong><br>${
+        isCorrect ? '✅ Correct.' : '❌ Not quite.'
+      } ${question.explanation}</p>`
+      );
+    } else {
         const rubricHits = question.rubric.filter((point) =>
           (response || '')
             .toLowerCase()
@@ -74,11 +94,26 @@ function initPractice(unit) {
     const accuracy = total ? Math.round((correct / total) * 100) : 0;
     results.classList.toggle('practice__results--success', accuracy >= 75);
     results.classList.toggle('practice__results--danger', accuracy < 50);
+    const prompt = unit.elaborativePrompts
+      ? unit.elaborativePrompts[Math.floor(Math.random() * unit.elaborativePrompts.length)]
+      : null;
     results.innerHTML = `
       <p>You nailed ${correct} / ${total} quantitative questions (${accuracy}%).</p>
       <div class="practice__feedback">${feedback.join('')}</div>
+      <p class="hint">A fresh quiz has been loaded above so you can keep practicing right away.</p>
     `;
     results.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    if (elaboration && prompt) {
+      elaboration.innerHTML = `
+        <h3>Elaborative follow-up</h3>
+        <p>${prompt.question}</p>
+        <ul>${prompt.followUps.map((item) => `<li>${item}</li>`).join('')}</ul>
+        <p class="hint">Pause for a short break, then write a 2-minute response before your next quiz.</p>
+      `;
+    }
+
+    renderQuiz();
   });
 }
 

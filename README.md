@@ -6,9 +6,13 @@ Interactive, browser-based study environment tailored for Harvard's Life Science
 - **Unit overview cards** that surface core objectives, mechanistic flow, and molecular players.
 - **Drag & drop resource vault** for uploading lecture slides, practice problems, and notes to integrate with the study guide.
 - **Adaptive study guide generator** that weaves textbook anchors, your goals, and uploaded files into a shareable plan.
-- **Flashcards + custom card builder** to support spaced retrieval and the Feynman technique.
-- **Practice assessments** with instant feedback and rubric checklists for open response questions.
-- **Tutor mode** that delivers stepwise prompts and feedback to deepen conceptual understanding.
+- **Flashcards + spaced scheduler** to support retrieval practice, elaborative follow-ups, and your own mnemonic hooks.
+- **Interleaving studio** that mixes mechanistic, quantitative, and experimental strands into ready-made study loops.
+- **Elaboration lab** with rolling prompts for self-explanation and transfer questions.
+- **Mnemonic & visual lab** combining curated memory aids, an interactive concept map, and your own devices.
+- **Practice assessments** with instant feedback, rubric checklists, and elaborative extensions after each attempt.
+- **Tutor mode** that delivers stepwise prompts, logs reflections, and suggests deeper elaboration cues.
+- **Study rhythm planner** for spacing bursts, logging rest, and tracking XP-style motivation.
 - **Systems-level synthesis sandbox** for modeling transcription outcomes under different nutrient and mutation scenarios.
 
 ## Getting Started
@@ -40,11 +44,11 @@ Interactive, browser-based study environment tailored for Harvard's Life Science
    - Click **Generate Study Guide** to tailor the concept map to your goals.
    - Use flashcards, practice tests, tutor mode, and the synthesis sandbox to reinforce mastery.
 
-All progress (uploads, custom flashcards, reflections) lives in `localStorage`, so you can close the tab and return later without losing your work.
+All progress (uploads, custom flashcards, mnemonics, interleaving history, reflections, planner streaks) lives in `localStorage`, so you can close the tab and return later without losing your work.
 
 ## Extending the App
-- Add new units by duplicating the `unitData` structure in `app.js`.
-- Incorporate additional practice questions or flashcards by appending to the relevant arrays.
-- Style adjustments can be made in `styles.css`.
+- Add new units by duplicating the `unitData` structure in `scripts/data/unitData.js`, including interleaving strands, elaborative prompts, and mnemonic assets.
+- Extend practice questions, flashcards, or planner guidance by appending to the relevant arrays in the same data file.
+- Style adjustments for new components can be made in `styles.css`.
 
 Contributions welcome—extend features to cover additional LS1A modules throughout the term!

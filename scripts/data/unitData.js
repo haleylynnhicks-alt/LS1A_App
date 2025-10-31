@@ -68,31 +68,158 @@ const unitData = {
   ],
   flashcards: [
     {
+      id: 'fc-promoter-strength',
       prompt: 'Why is the lac promoter considered “weak” without CAP–cAMP?',
       answer:
         'The -35 and -10 regions do not match the ideal σ⁷⁰ sequence, so RNA polymerase lets go quickly. CAP–cAMP bends the DNA and holds the polymerase in place long enough to start.',
+      elaborationPrompt:
+        'Explain how an RNA polymerase footprint would change when CAP is bound versus when it is absent.',
+      mnemonic:
+        'Think “CAP = Cradle” — CAP bends DNA like a cradle that keeps polymerase rocking in place.',
     },
     {
+      id: 'fc-inducer',
       prompt: 'How does allolactose induce the lac operon?',
       answer:
         'Allolactose fits into LacI and changes its shape. The DNA-binding hands no longer match the operator, so LacI slides off and RNA polymerase can sit down.',
+      elaborationPrompt:
+        'Why does the presence of lactose alone not guarantee high mRNA output?',
+      mnemonic:
+        '“Allo lets go” — allolactose lets LacI go of the operator.',
     },
     {
+      id: 'fc-and-logic',
       prompt: 'Describe the AND gate logic governing lac operon expression.',
       answer:
         'Picture two switches. Switch one is lactose turning LacI off. Switch two is low glucose making CAP–cAMP. Only when both switches are on do we see high mRNA.',
+      elaborationPrompt:
+        'Connect the AND gate idea to a diauxic growth curve — what happens to transcription during each growth phase?',
+      mnemonic: '“Lac Off? Lack Both” — without both signals, output stays low.',
     },
     {
+      id: 'fc-emsa',
       prompt: 'What does an EMSA band shift tell you about LacI?',
       answer:
         'On the gel, free DNA runs fast and bound DNA runs slow. Watching the slow band grow as you add LacI tells you how tightly LacI sticks and lets you read the K<sub>D</sub>.',
+      elaborationPrompt:
+        'If you add IPTG and the shifted band weakens, what molecular change is responsible for the altered mobility?',
+      mnemonic: '“Shift equals Shift” — band shift reveals affinity shift.',
     },
     {
+      id: 'fc-lacI-null',
       prompt: 'How would a lacI null mutation affect the operon?',
       answer:
         'If LacI is gone, nothing blocks the operator. The genes make RNA all the time, but you still need CAP–cAMP to reach the very highest levels when glucose is missing.',
+      elaborationPrompt:
+        'Predict β-galactosidase activity for lacI<sup>-</sup> cells grown with high glucose versus low glucose.',
+      mnemonic: '“No I, No Idle” — without LacI the operon never idles.',
     },
   ],
+  elaborativePrompts: [
+    {
+      id: 'elab-energy-budget',
+      question:
+        'Why does it benefit the cell to keep lac transcription low when glucose is abundant? Answer using ATP budgeting and enzyme synthesis costs.',
+      followUps: [
+        'Compare the ATP cost of lacZYA expression to the ATP gained from lactose breakdown.',
+        'Relate this cost-benefit thinking to other inducible systems you know.',
+      ],
+    },
+    {
+      id: 'elab-data-bridge',
+      question:
+        'How would you justify the lac operon AND gate to a skeptical lab partner using real data?',
+      followUps: [
+        'Name two experiments whose graphs you would sketch and explain.',
+        'State what patterns those graphs must show if the AND logic is true.',
+      ],
+    },
+    {
+      id: 'elab-analogy',
+      question:
+        'Invent an analogy outside of biology for how LacI and CAP share control. Make sure your analogy has two separate levers that must both move to unlock an outcome.',
+      followUps: [
+        'Identify what plays the role of lactose and glucose in your analogy.',
+        'Explain where feedback fits in.',
+      ],
+    },
+  ],
+  interleaving: {
+    strands: [
+      {
+        id: 'signals-vs-structure',
+        title: 'Signals ↔ DNA Structure',
+        description:
+          'Switch between environmental sugar cues and the resulting protein-DNA interactions so your brain links cause and effect.',
+        quickChecks: [
+          'Name the molecule that changes when glucose dips.',
+          'Sketch how LacI grips the operator before and after lactose appears.',
+        ],
+        elaboration:
+          'Ask yourself how the physical placement of LacI, CAP, and RNA polymerase changes after each signal and why those shifts cost energy.',
+        bridgeIdeas: ['Pair with chromatin accessibility in eukaryotes later in the course.'],
+      },
+      {
+        id: 'binding-curves',
+        title: 'Binding Curves ↔ Expression Outcomes',
+        description:
+          'Interleave quantitative EMSA interpretation with qualitative transcription predictions to connect numbers to narratives.',
+        quickChecks: [
+          'Estimate K<sub>D</sub> from a half-shifted lane.',
+          'Predict mRNA levels for that K<sub>D</sub> under low glucose.',
+        ],
+        elaboration:
+          'Explain why a weaker LacI-DNA interaction at higher K<sub>D</sub> values affects polymerase dwell time.',
+        bridgeIdeas: ['Relate to hemoglobin oxygen binding curves (future unit).'],
+      },
+      {
+        id: 'metabolic-feedback',
+        title: 'Metabolic Feedback ↔ Genetic Logic',
+        description:
+          'Alternate between enzyme functions and gene control logic to keep feedback loops vivid.',
+        quickChecks: [
+          'State how LacZ activity changes lactose availability.',
+          'Decide what happens to CAP when lactose metabolism boosts ATP.',
+        ],
+        elaboration:
+          'Trace how product levels alter the original signal, and note delays in the feedback.',
+        bridgeIdeas: ['Connect to glycolysis enzyme regulation problems.'],
+      },
+      {
+        id: 'experimental-design',
+        title: 'Experiment Design ↔ Mechanism',
+        description:
+          'Rotate between posing experiments and predicting mechanistic outcomes to deepen transfer.',
+        quickChecks: [
+          'Choose the right control for a lacI<sup>-</sup> mutant test.',
+          'Argue which assay best captures CAP activation.',
+        ],
+        elaboration:
+          'Defend how each experimental readout maps back to the molecular story.',
+        bridgeIdeas: ['Relate to transcription factor knockouts in yeast.'],
+      },
+    ],
+    comboTemplates: [
+      {
+        id: 'combo-mechanism-data',
+        title: 'Mechanism + Data Mash-up',
+        strands: ['signals-vs-structure', 'binding-curves'],
+        rationale:
+          'Switching between qualitative mechanism and quantitative readouts cements why the data look the way they do.',
+        selfExplanation:
+          'After each switch, narrate how the measurement reflects the molecules you just tracked.',
+      },
+      {
+        id: 'combo-feedback-design',
+        title: 'Feedback Loop Challenge',
+        strands: ['metabolic-feedback', 'experimental-design'],
+        rationale:
+          'Chasing the feedback loop and then designing tests keeps transfer ready for novel sugars or mutants.',
+        selfExplanation:
+          'Justify each experimental choice by pointing to a specific step in the feedback diagram.',
+      },
+    ],
+  },
   practiceQuestions: [
     {
       id: 'q1',
@@ -161,6 +288,73 @@ const unitData = {
         'Compare to lactose-positive and -negative controls to conclude induction.',
       ],
     },
+    {
+      id: 'q6',
+      type: 'mc',
+      prompt:
+        'Cells are moved from high glucose into lactose-only media. What is the first molecular change that lets transcription rise?',
+      options: [
+        'RNA polymerase mutates to grab the promoter better.',
+        'cAMP levels climb so CAP can bind DNA.',
+        'LacZ immediately breaks lactose into glucose and galactose.',
+        'LacI starts binding the promoter more tightly.',
+      ],
+      answer: 1,
+      explanation:
+        'Removing glucose frees adenylate cyclase to make cAMP. CAP grabs that cAMP and finally sits on its site so the weak promoter is helped.',
+    },
+    {
+      id: 'q7',
+      type: 'mc',
+      prompt:
+        'You add a plasmid expressing LacI that never releases DNA. How will β-galactosidase activity change in any sugar condition?',
+      options: [
+        'High in lactose, low in glucose.',
+        'Medium in all conditions.',
+        'Always very low because RNA polymerase cannot enter.',
+        'Oscillating depending on CAP.',
+      ],
+      answer: 2,
+      explanation:
+        'A LacI that never drops off the operator blocks the promoter door permanently, so polymerase never gets in regardless of other signals.',
+    },
+    {
+      id: 'q8',
+      type: 'open',
+      prompt:
+        'Describe one reason why mixing permease mutants with wild-type cells can still give lactose uptake in a culture.',
+      rubric: [
+        'Wild-type cells still express LacY permease.',
+        'Permease creates a shared lactose pool in the medium.',
+        'Mutant cells can import lactose that others release.',
+      ],
+    },
+    {
+      id: 'q9',
+      type: 'mc',
+      prompt:
+        'Which measurement would best tell you that CAP really bends DNA toward RNA polymerase?',
+      options: [
+        'Loss of lacZ expression when lactose is absent.',
+        'DNase I footprint showing hypersensitive bases upstream when CAP binds.',
+        'SDS-PAGE gel of CAP protein size.',
+        'Sequencing the lacZ coding region.',
+      ],
+      answer: 1,
+      explanation:
+        'A DNase I footprint that gains a hypersensitive spot indicates the DNA is bent or more open. That is direct evidence CAP changes the promoter shape.',
+    },
+    {
+      id: 'q10',
+      type: 'open',
+      prompt:
+        'Outline a quick logic chain for predicting lac expression when glucose is high, lactose is present, and LacI is deleted.',
+      rubric: [
+        'High glucose keeps CAP off the DNA.',
+        'No LacI means no repression from the operator.',
+        'Final output is medium because polymerase lacks CAP help but is not blocked.',
+      ],
+    },
   ],
   tutorSteps: [
     {
@@ -196,6 +390,101 @@ const unitData = {
         'Only the box with lactose present and glucose absent gives high RNA because both LacI is off and CAP is on. A lacI-null mutant keeps RNA medium even with glucose present, but high output still needs CAP in low glucose.',
     },
   ],
+  mnemonicDevices: {
+    keyTerms: [
+      {
+        term: 'LAC',
+        device: '“Lactose Acts as Cue” — remember that lactose sends the release signal.',
+        usage:
+          'Write L-A-C down your page and attach “Lactose”, “Allolactose”, “Conformational change” as you narrate the induction story.',
+      },
+      {
+        term: 'CAP',
+        device: '“cAMP Activates Partner” — the partner (CAP) only acts after cAMP hugs it.',
+        usage: 'Sketch two stick figures linking arms to picture cAMP helping CAP grab DNA.',
+      },
+      {
+        term: 'IPTG',
+        device: '“I Persist To Glow” — IPTG stays in the cell and keeps LacI off, often paired with reporter glow assays.',
+        usage: 'Use this when setting up lab practice problems so you remember IPTG is non-metabolizable.',
+      },
+    ],
+    imagery: [
+      {
+        title: 'Operator Gate',
+        description:
+          'Imagine the operator as a gate with LacI as the lock. Allolactose is the tiny key that loosens the lock springs.',
+      },
+      {
+        title: 'CAP Spotlight',
+        description:
+          'Picture CAP as a spotlight that shines on the promoter when glucose is scarce, guiding RNA polymerase onto stage.',
+      },
+    ],
+  },
+  visualConceptMap: {
+    nodes: [
+      { id: 'glucose', label: 'Glucose level', group: 'signals' },
+      { id: 'cyaA', label: 'Adenylate cyclase', group: 'enzymes' },
+      { id: 'camp', label: 'cAMP', group: 'signals' },
+      { id: 'cap', label: 'CAP', group: 'proteins' },
+      { id: 'lacI', label: 'LacI', group: 'proteins' },
+      { id: 'operator', label: 'Operator DNA', group: 'dna' },
+      { id: 'promoter', label: 'Promoter', group: 'dna' },
+      { id: 'rna-poly', label: 'RNA polymerase', group: 'proteins' },
+      { id: 'lactose', label: 'Lactose', group: 'signals' },
+      { id: 'allolactose', label: 'Allolactose', group: 'signals' },
+      { id: 'lacZ', label: 'LacZ', group: 'enzymes' },
+      { id: 'lacY', label: 'LacY', group: 'enzymes' },
+      { id: 'lacA', label: 'LacA', group: 'enzymes' },
+      { id: 'mrna', label: 'lac mRNA', group: 'outputs' },
+    ],
+    edges: [
+      { from: 'glucose', to: 'cyaA', label: 'inhibits when high' },
+      { from: 'cyaA', to: 'camp', label: 'makes' },
+      { from: 'camp', to: 'cap', label: 'activates' },
+      { from: 'cap', to: 'promoter', label: 'bends & recruits' },
+      { from: 'lactose', to: 'allolactose', label: 'isomerizes into' },
+      { from: 'allolactose', to: 'lacI', label: 'induces release' },
+      { from: 'lacI', to: 'operator', label: 'blocks' },
+      { from: 'operator', to: 'rna-poly', label: 'controls access for' },
+      { from: 'rna-poly', to: 'mrna', label: 'transcribes' },
+      { from: 'mrna', to: 'lacZ', label: 'translates to' },
+      { from: 'mrna', to: 'lacY', label: 'translates to' },
+      { from: 'mrna', to: 'lacA', label: 'translates to' },
+      { from: 'lacZ', to: 'lactose', label: 'metabolizes' },
+      { from: 'lacY', to: 'lactose', label: 'imports' },
+    ],
+  },
+  plannerGuidance: {
+    pacing: [
+      'Space three 20-minute retrieval bursts across the day rather than one long cram.',
+      'Rotate between at least two interleaving strands each session.',
+      'Schedule a five-minute summary write-up after each practice quiz.',
+    ],
+    wellbeing: [
+      'Insert 5-minute movement or hydration breaks between intense retrieval sets.',
+      'Stop sessions 30 minutes before sleep to let consolidation work.',
+      'Celebrate small wins with a quick reflection log — consistency beats length.',
+    ],
+    reminders: [
+      'Sunday evening: plan interleaving mix for the week.',
+      'After each lecture: upload new resources and tag them for flashcards.',
+      'Night before section: run one adaptive quiz and one mnemonic sketch.',
+    ],
+    gamification: {
+      xpRules: [
+        '+5 XP for finishing an interleaved quiz sequence.',
+        '+3 XP for adding a new elaborative answer.',
+        '+2 XP for logging rest and recovery notes.',
+      ],
+      badges: [
+        'Mix Master: complete three different interleaving combos in a week.',
+        'Mnemonic Maker: craft five custom memory aids.',
+        'Reflection Pro: log tutor reflections three days in a row.',
+      ],
+    },
+  },
 };
 
 export default unitData;
