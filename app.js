@@ -32,16 +32,18 @@ const unitData = {
       {
         heading: 'DNA binding decisions',
         detail:
-          'High-affinity LacI conformers bind the operator and block RNA polymerase. Inducer binding flips LacI to a low-affinity state; CAP–cAMP complexes bind the promoter upstream to recruit RNA polymerase.',
+          'Start with LacI gripping the operator so RNA polymerase cannot sit down. When allolactose is present, LacI loosens its grip. At the same time CAP only sticks to DNA when cAMP is there, so the promoter gets a CAP helper.',
       },
       {
         heading: 'Transcription outcomes',
         detail:
+          'Put the two earlier steps together. RNA polymerase makes a lot of RNA only when LacI has let go (needs lactose) AND CAP–cAMP is helping (needs low glucose). Missing either input keeps transcription low.',
           'Full transcription requires both relief of repression and activation by CAP–cAMP. Operon behaves as an AND gate integrating lactose (inducer) and absence of glucose.',
       },
       {
         heading: 'Metabolic payoff',
         detail:
+          'Once the RNA is made, the lacZYA proteins appear. LacZ splits lactose and also makes allolactose, LacY lets more lactose in, and LacA clears toxic leftovers. The loop feeds back so the cell keeps using lactose well.',
           'β-galactosidase (lacZ) cleaves lactose, permease (lacY) imports lactose, and transacetylase (lacA) detoxifies byproducts, allowing cells to exploit lactose as carbon.',
       },
     ],
@@ -66,44 +68,44 @@ const unitData = {
     {
       heading: 'Experimental Evidence',
       bullets: [
-        'Electrophoretic mobility shift assays (EMSAs) quantify fraction of operator DNA bound by LacI at varying concentrations (sigmoidal binding curve).',
-        'Inducers shift LacI equilibrium from high- to low-affinity conformation, increasing K<sub>S</sub> (dissociation constant) as visualized by EMSA.',
-        'CAP–cAMP recruitment of RNA polymerase measured via footprinting and transcription assays; AND gate logic inferred by lactose/glucose matrix experiments.',
+        'Electrophoretic mobility shift assays (EMSAs) show two bands: free DNA and DNA bound to LacI. As you add more LacI, more DNA moves slowly, letting you read the binding curve.',
+        'Adding allolactose or IPTG makes the bound band fade at the same LacI level. That shift means LacI lets go more easily, so the measured K<sub>D</sub> gets larger.',
+        'CAP–cAMP footprints protect DNA upstream of the promoter and boost RNA counts in transcription assays. A grid of glucose versus lactose conditions traces out the AND logic.',
       ],
     },
   ],
   anchorNotes: [
-    'β-galactosidase cleaves lactose to glucose and galactose, also catalyzes isomerization to allolactose (true inducer).',
-    'LacI repression is dominant without inducer; lacI mutants express lac genes constitutively even without lactose.',
-    'CAP-mediated activation is necessary for high transcription when glucose is absent because promoter -35/-10 sites deviate from consensus.',
-    'Binding curve midpoint corresponds to [R] where 50% of operator is occupied; relates to K<sub>D</sub> = [R][O]/[RO].',
-    'Lac operon logic approximates AND between lactose presence and absence of glucose (via cAMP), with additional modulation by mutations.',
+    'LacZ has two jobs: cut lactose into sugars we can burn and rearrange a little bit of it into allolactose, the signal molecule.',
+    'Without any inducer, LacI sits on the DNA almost all the time. A lacI<sup>-</sup> mutant loses this brake and the genes stay on.',
+    'Because the promoter is weak, even lactose alone cannot give high expression. CAP–cAMP is the push that raises transcription when glucose is scarce.',
+    'In an EMSA, the point where half the DNA is shifted equals the K<sub>D</sub>. Use K<sub>D</sub> = [R][O]/[RO] and plug in the concentrations you set.',
+    'Think of the operon as an AND gate: lactose (induces) AND low glucose (activates CAP). Mutations tweak the gate by removing or bypassing an input.',
   ],
   flashcards: [
     {
       prompt: 'Why is the lac promoter considered “weak” without CAP–cAMP?',
       answer:
-        'Its -35 and -10 elements deviate from the consensus recognized by σ⁷⁰ RNA polymerase, so polymerase binds poorly unless CAP–cAMP bends the DNA and stabilizes the closed complex.',
+        'The -35 and -10 regions do not match the ideal σ⁷⁰ sequence, so RNA polymerase lets go quickly. CAP–cAMP bends the DNA and holds the polymerase in place long enough to start.',
     },
     {
       prompt: 'How does allolactose induce the lac operon?',
       answer:
-        'Allolactose binds LacI, shifting it to a low-affinity DNA-binding conformation. The operator is released, enabling RNA polymerase to transcribe lacZYA.',
+        'Allolactose fits into LacI and changes its shape. The DNA-binding hands no longer match the operator, so LacI slides off and RNA polymerase can sit down.',
     },
     {
       prompt: 'Describe the AND gate logic governing lac operon expression.',
       answer:
-        'Expression requires both lactose (to inactivate LacI) AND low glucose (to generate cAMP for CAP activation). Without either condition, transcription remains low.',
+        'Picture two switches. Switch one is lactose turning LacI off. Switch two is low glucose making CAP–cAMP. Only when both switches are on do we see high mRNA.',
     },
     {
       prompt: 'What does an EMSA band shift tell you about LacI?',
       answer:
-        'The position of DNA bands indicates whether operator DNA is free or bound by LacI. Increasing LacI concentration shifts more DNA into slower-moving complexes, revealing binding affinity and K<sub>D</sub>.',
+        'On the gel, free DNA runs fast and bound DNA runs slow. Watching the slow band grow as you add LacI tells you how tightly LacI sticks and lets you read the K<sub>D</sub>.',
     },
     {
       prompt: 'How would a lacI null mutation affect the operon?',
       answer:
-        'Without LacI, the operator cannot be repressed. Basal transcription occurs even without lactose, but maximal expression still requires CAP–cAMP to recruit RNA polymerase efficiently.',
+        'If LacI is gone, nothing blocks the operator. The genes make RNA all the time, but you still need CAP–cAMP to reach the very highest levels when glucose is missing.',
     },
   ],
   practiceQuestions: [
@@ -120,7 +122,7 @@ const unitData = {
       ],
       answer: 1,
       explanation:
-        'Glucose represses cAMP production, so CAP cannot activate the weak promoter. LacI is inactive, but without CAP recruitment transcription stays low.',
+        'Plenty of glucose keeps cAMP low, so CAP never helps the weak promoter. Lactose does turn LacI off, but without CAP the polymerase still slips off and transcription stays low.',
     },
     {
       id: 'q2',
@@ -135,7 +137,7 @@ const unitData = {
       ],
       answer: 0,
       explanation:
-        'At the midpoint of the binding curve, [R] = K<sub>D</sub>. The equation K<sub>D</sub> = [R][O]/[RO] simplifies to [R] when 50% of DNA is bound.',
+        'Half of the DNA being shifted means [RO] = [O]. Plug those into K<sub>D</sub> = [R][O]/[RO] and you get K<sub>D</sub> = [R]. The [R] we used was 10<sup>-9</sup> M, so that is the K<sub>D</sub>.',
     },
     {
       id: 'q3',
@@ -161,7 +163,7 @@ const unitData = {
       ],
       answer: 0,
       explanation:
-        'Without repression and with activated CAP, RNA polymerase is continually recruited independent of glucose.',
+        'Breaking the operator removes the LacI brake and extra CAP keeps the helper switch on. Even with glucose around, polymerase always finds the promoter and keeps transcribing.',
     },
     {
       id: 'q5',
@@ -179,34 +181,34 @@ const unitData = {
     {
       title: 'Decode the metabolic signals',
       prompt:
-        'Walk through what happens to cAMP levels and allolactose production when glucose is low but lactose is present. Why do those changes matter for protein-DNA binding?',
+        'Tell the story in order: low glucose changes cAMP, lactose changes allolactose. Explain why each change matters for the proteins touching DNA.',
       checkpoints: ['cAMP rises when glucose is low', 'Allolactose binds LacI', 'Binding states change for CAP and LacI'],
       feedback:
-        'Glucose scarcity frees adenylate cyclase to make cAMP. Lactose converts to allolactose, which inactivates LacI. CAP–cAMP now binds the promoter, while LacI falls off the operator.',
+        'When glucose is low, CyaA makes cAMP and CAP grabs it so the CAP dimer can sit on DNA. Lactose turns into allolactose, which loosens LacI so it slips off the operator. Those shifts open the promoter for polymerase.',
     },
     {
       title: 'Operator and promoter occupancy',
       prompt:
-        'Detail how LacI tetramers recognize operator DNA and why the promoter needs CAP to achieve high transcription rates.',
+        'Describe what LacI is doing on the operator and what happens to the promoter once CAP arrives. Keep the focus on the order of events.',
       checkpoints: ['Palindromic operator half-sites', 'Repressor steric hindrance', 'CAP bending recruits RNA polymerase'],
       feedback:
-        'LacI recognizes two palindromic half-sites, looping DNA to block RNA polymerase. CAP–cAMP bends DNA upstream, compensating for the weak -35/-10 elements.',
+        'LacI uses its paired heads to hold the palindromic operator and can even loop the DNA, leaving no space for polymerase. When CAP–cAMP binds upstream, it bends the DNA toward the promoter so the weak -35/-10 boxes finally line up for polymerase.',
     },
     {
       title: 'Quantitative interpretation',
       prompt:
-        'You observe 50% bound DNA in an EMSA at 1 nM LacI. Explain how this relates to K<sub>D</sub> and what would happen upon adding inducer.',
+        'You see half the DNA shifted in an EMSA at 1 nM LacI. Explain how that number ties to K<sub>D</sub>, then say how adding inducer would change the curve.',
       checkpoints: ['Midpoint equals K<sub>D</sub>', 'Inducer raises K<sub>D</sub>', 'Binding curve shifts right'],
       feedback:
-        'At 50% occupancy, [R] = K<sub>D</sub>. Inducer stabilizes the low-affinity conformation, so K<sub>D</sub> increases and the binding curve shifts, requiring more LacI for the same occupancy.',
+        'Fifty percent bound means [RO] = [O], so K<sub>D</sub> equals the free LacI concentration, here 1 nM. Adding inducer pushes LacI into the weak-binding shape, so the K<sub>D</sub> grows and the whole curve slides rightward.',
     },
     {
       title: 'Systems logic',
       prompt:
-        'Summarize the AND gate behavior in terms of transcriptional output when toggling glucose and lactose inputs. Include one mutation scenario.',
+        'Lay out a small table: with or without lactose, with or without glucose. State when RNA is high or low and add one mutation example.',
       checkpoints: ['Requires lactose AND low glucose', 'Describe at least one mutant', 'Link to RNA polymerase recruitment'],
       feedback:
-        'Transcription is high only when lactose is present and glucose is absent, enabling CAP recruitment. A lacI-null mutant bypasses the lactose requirement but still depends on CAP for maximal transcription.',
+        'Only the box with lactose present and glucose absent gives high RNA because both LacI is off and CAP is on. A lacI-null mutant keeps RNA medium even with glucose present, but high output still needs CAP in low glucose.',
     },
   ],
 };
