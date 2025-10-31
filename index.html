@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LS1A Study Companion</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="hero__content">
+        <h1>Life Sciences 1A Study Companion</h1>
+        <p>
+          Build confidence with a guided walk through Harvard LS1A Unit:
+          <strong>The Lac Operon and Gene Regulation</strong>. We take each idea in
+          order so you always know what comes next.
+        </p>
+        <div class="hero__actions">
+          <button id="startTutor" class="btn btn--primary">
+            Start Guided Session
+          </button>
+          <button id="generateGuide" class="btn btn--secondary">
+            Generate Study Guide
+          </button>
+        </div>
+      </div>
+      <div class="hero__meta">
+        <div class="chip">Smart Uploads</div>
+        <div class="chip">Adaptive Quizzes</div>
+        <div class="chip">Evidence-based Study Loops</div>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel" aria-labelledby="unit-overview">
+        <div class="panel__header">
+          <h2 id="unit-overview">Unit Overview</h2>
+          <p>
+            Start with a plain-language roadmap. Meet the goals, then read each
+            step of the story before diving into molecular details.
+          </p>
+        </div>
+        <div class="panel__grid">
+          <article class="card" id="conceptObjectives"></article>
+          <article class="card" id="conceptFlow"></article>
+          <article class="card" id="molecularPlayers"></article>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="resource-uploader">
+        <div class="panel__header">
+          <h2 id="resource-uploader">Drag &amp; Drop Resources</h2>
+          <p>
+            Drop lecture slides, handwritten notes, practice problems, textbook
+            annotations, or video transcripts. We'll index the files and map them
+            to the LS1A framework so you can revisit them during quizzes and
+            tutoring.
+          </p>
+        </div>
+        <div class="uploader" id="dropZone" role="button" tabindex="0">
+          <span class="uploader__icon">⬆️</span>
+          <p>Drag files here or click to upload</p>
+          <input type="file" id="fileInput" multiple aria-label="Upload files" />
+        </div>
+        <ul class="uploader__list" id="uploadedList" aria-live="polite"></ul>
+      </section>
+
+      <section class="panel" aria-labelledby="study-guide">
+        <div class="panel__header">
+          <h2 id="study-guide">Adaptive Study Guide Builder</h2>
+          <p>
+            Mix your files with our prompts to build a study guide that explains
+            what happens first, next, and last, plus the reasons underneath.
+          </p>
+        </div>
+        <div class="study-guide">
+          <div class="study-guide__inputs">
+            <label for="customNotes">Add quick notes or insights:</label>
+            <textarea id="customNotes" placeholder="Paste highlights or jot down questions..."></textarea>
+            <label for="learningGoal">What do you want to master today?</label>
+            <input
+              id="learningGoal"
+              type="text"
+              placeholder="e.g. Predict operon activity under various glucose/lactose conditions"
+            />
+          </div>
+          <div class="study-guide__output">
+            <h3>Generated Study Guide</h3>
+            <div id="studyGuideOutput" class="study-guide__content" aria-live="polite"></div>
+            <button id="exportGuide" class="btn btn--ghost">Copy to Clipboard</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="flashcards">
+        <div class="panel__header">
+          <h2 id="flashcards">Flashcards &amp; Retrieval Practice</h2>
+          <p>
+            Review each concept on one side and the full explanation on the other.
+            Add your own cards to reteach the story in your own words.
+          </p>
+        </div>
+        <div class="flashcards" id="flashcardDeck"></div>
+        <form class="flashcards__form" id="flashcardForm">
+          <h3>Create your own card</h3>
+          <div class="form-field">
+            <label for="flashcardPrompt">Prompt</label>
+            <input id="flashcardPrompt" required />
+          </div>
+          <div class="form-field">
+            <label for="flashcardAnswer">Explanation</label>
+            <textarea id="flashcardAnswer" required></textarea>
+          </div>
+          <button class="btn btn--primary">Add Card</button>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="practice-tests">
+        <div class="panel__header">
+          <h2 id="practice-tests">Unit Practice Tests</h2>
+          <p>
+            Work through questions that move from quick concepts to data reading
+            and short calculations, just like LS1A exams.
+          </p>
+        </div>
+        <form id="practiceForm" class="practice"></form>
+        <div id="practiceResults" class="practice__results" aria-live="polite"></div>
+      </section>
+
+      <section class="panel" aria-labelledby="tutor-mode">
+        <div class="panel__header">
+          <h2 id="tutor-mode">Tutor Mode</h2>
+          <p>
+            Follow guided checkpoints. Each prompt asks you to explain the next
+            step out loud and makes sure you understand why the biology behaves
+            that way.
+          </p>
+        </div>
+        <div class="tutor">
+          <div class="tutor__steps">
+            <ol id="tutorSteps" class="tutor__list"></ol>
+          </div>
+          <div class="tutor__workspace">
+            <h3 id="currentStepTitle"></h3>
+            <p id="currentStepPrompt"></p>
+            <label class="sr-only" for="tutorResponse">Your explanation</label>
+            <textarea id="tutorResponse" placeholder="Write your reasoning..."></textarea>
+            <button id="submitReflection" class="btn btn--primary">Submit Reflection</button>
+            <div id="tutorFeedback" class="tutor__feedback" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="synthesis">
+        <div class="panel__header">
+          <h2 id="synthesis">Systems-Level Synthesis</h2>
+          <p>
+            Tie everything together by changing the sliders and reading how the
+            system responds. Use it to check your predictions about new
+            situations.
+          </p>
+        </div>
+        <div class="synthesis">
+          <div class="synthesis__controls">
+            <div class="control">
+              <label for="glucoseLevel">Glucose availability</label>
+              <input type="range" id="glucoseLevel" min="0" max="100" value="50" />
+            </div>
+            <div class="control">
+              <label for="lactoseLevel">Lactose availability</label>
+              <input type="range" id="lactoseLevel" min="0" max="100" value="50" />
+            </div>
+            <div class="control">
+              <label for="mutations">Mutation scenarios</label>
+              <select id="mutations">
+                <option value="none">None (wild-type)</option>
+                <option value="lacI-null">lacI null (no repressor)</option>
+                <option value="lacO-operator">Operator mutation (repressor can't bind)</option>
+                <option value="lacP-weak">Weak promoter mutation</option>
+                <option value="cyaA-null">cyaA null (no cAMP)</option>
+              </select>
+            </div>
+          </div>
+          <div class="synthesis__output" id="synthesisOutput"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>
+        Built for Harvard LS1A students. Store data locally in your browser — no
+        logins required. Continue adding units as the semester progresses.
+      </p>
+    </footer>
+
+    <script src="scripts/main.js" type="module"></script>
+  </body>
+</html>
