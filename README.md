@@ -12,12 +12,35 @@ Interactive, browser-based study environment tailored for Harvard's Life Science
 - **Systems-level synthesis sandbox** for modeling transcription outcomes under different nutrient and mutation scenarios.
 
 ## Getting Started
-1. Open `index.html` in your browser.
-2. Drop PDFs, slides, or notes into the uploader to curate your resource list (stored locally in your browser).
-3. Click **Generate Study Guide** to align the curated concept map with your personal goals.
-4. Use the flashcards, practice test, tutor mode, and synthesis controls to reinforce mastery.
 
-All progress (uploads, custom flashcards, reflections) is stored in `localStorage`, so you can return to the page and pick up where you left off.
+### Prerequisites
+- A modern desktop browser (Chrome, Edge, Firefox, or Safari).
+- Optional: a lightweight static file server if you prefer not to open HTML files directly from disk.
+
+### Run the app locally
+1. **Download the project**
+   ```bash
+   git clone https://github.com/<your-account>/LS1A_App.git
+   cd LS1A_App
+   ```
+2. **Serve the files** (pick one of the following options):
+   - **Quick preview:** double-click `index.html` to open it in your browser.
+   - **Python server:**
+     ```bash
+     python -m http.server 8000
+     ```
+     Then visit http://localhost:8000 in your browser.
+   - **Node serve:**
+     ```bash
+     npx serve .
+     ```
+     Then visit the URL shown in the terminal (usually http://localhost:3000).
+3. **Load your materials**
+   - Drop PDFs, lecture slides, notes, or problem sets into the **Resource Vault** to curate your study library (uploads stay in your browser’s local storage).
+   - Click **Generate Study Guide** to tailor the concept map to your goals.
+   - Use flashcards, practice tests, tutor mode, and the synthesis sandbox to reinforce mastery.
+
+All progress (uploads, custom flashcards, reflections) lives in `localStorage`, so you can close the tab and return later without losing your work.
 
 ## Extending the App
 - Add new units by duplicating the `unitData` structure in `app.js`.
