@@ -14,12 +14,12 @@ const defaultState = {
 const unitData = {
   title: 'The Lac Operon and Gene Regulation',
   description:
-    'Step through how <em>E. coli</em> decides to make the lac enzymes. We start with the sugars outside the cell, follow the signals to the proteins, and end with the RNA polymerase decision.',
+    'Integrate metabolic signals with DNA-binding proteins to tune transcription of the lac operon in <em>E. coli</em>. Focus on molecular interactions, quantitative regulation, and experimental evidence.',
   objectives: [
-    'Identify what glucose and lactose each do to the cell before any genes change.',
-    'Track, in order, how LacI, the operator DNA, CAP, and cAMP change shape or position after the sugar signals.',
-    'Use a binding curve or EMSA image to read off a K<sub>D</sub> and say what that tells us in words.',
-    'Propose one simple test (with controls) that separates negative control by LacI from positive control by CAP.',
+    'Predict lac operon expression states using combinations of glucose, lactose, and regulatory mutations.',
+    'Explain how LacI, operator DNA, CAP, and cAMP interact structurally to control transcription initiation.',
+    'Interpret electrophoretic mobility shift assays and binding curves to infer dissociation constants (K<sub>D</sub>).',
+    'Design experiments to distinguish between positive and negative regulation mechanisms.',
   ],
   conceptFlow: {
     title: 'Mechanistic Flow',
@@ -27,7 +27,7 @@ const unitData = {
       {
         heading: 'Environmental sensing',
         detail:
-          'Step 1: If glucose is low, adenylate cyclase (CyaA) finally turns on and makes cAMP. Step 2: If lactose enters, the side reaction makes allolactose, which can slip onto LacI.',
+          'Glucose scarcity elevates cAMP via adenylate cyclase (CyaA). Lactose presence yields allolactose, which allosterically inactivates the LacI repressor.',
       },
       {
         heading: 'DNA binding decisions',
@@ -38,11 +38,13 @@ const unitData = {
         heading: 'Transcription outcomes',
         detail:
           'Put the two earlier steps together. RNA polymerase makes a lot of RNA only when LacI has let go (needs lactose) AND CAP–cAMP is helping (needs low glucose). Missing either input keeps transcription low.',
+          'Full transcription requires both relief of repression and activation by CAP–cAMP. Operon behaves as an AND gate integrating lactose (inducer) and absence of glucose.',
       },
       {
         heading: 'Metabolic payoff',
         detail:
           'Once the RNA is made, the lacZYA proteins appear. LacZ splits lactose and also makes allolactose, LacY lets more lactose in, and LacA clears toxic leftovers. The loop feeds back so the cell keeps using lactose well.',
+          'β-galactosidase (lacZ) cleaves lactose, permease (lacY) imports lactose, and transacetylase (lacA) detoxifies byproducts, allowing cells to exploit lactose as carbon.',
       },
     ],
   },
@@ -50,17 +52,17 @@ const unitData = {
     {
       heading: 'Regulatory Proteins',
       bullets: [
-        'LacI is a tetramer. Picture two DNA hands holding the operator DNA; two other hands link to other operators to loop DNA.',
-        'CAP lives as a dimer. It only locks into its active shape after cAMP slides into each pocket, then it bends DNA so RNA polymerase can sit correctly.',
-        'Adenylate cyclase (CyaA) is the enzyme that makes cAMP, but the glucose transport system keeps it quiet whenever glucose is plentiful.',
+        'LacI repressor forms tetramers with two DNA-binding heads recognizing palindromic operator half-sites (O<sub>1</sub>, O<sub>3</sub>).',
+        'CAP (catabolite activator protein) dimerizes with cAMP, bending DNA ~90° to present the promoter to RNA polymerase.',
+        'Adenylate cyclase (CyaA) synthesizes cAMP when glucose is low; high glucose inhibits CyaA via phosphotransferase system.',
       ],
     },
     {
       heading: 'DNA & Promoters',
       bullets: [
-        'The lac promoter (P<sub>lac</sub>) has -35 and -10 boxes that are imperfect, so RNA polymerase alone binds weakly.',
-        'The operator sits on top of the promoter. When LacI is in place, the polymerase literally has no room to start.',
-        'The CAP site is just upstream (around -61.5). CAP grabs that site, bends the DNA toward the promoter, and makes a landing pad.',
+        'lac promoter (P<sub>lac</sub>) features non-consensus -35/-10 elements; inherently weak binding site for RNA polymerase without CAP assistance.',
+        'Operator overlaps the promoter; repressor binding occludes RNA polymerase access to transcription start site.',
+        'CAP-binding site is upstream (~ -61.5). Cooperative DNA bending aligns RNA polymerase holoenzyme for initiation.',
       ],
     },
     {
