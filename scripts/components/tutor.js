@@ -1,13 +1,11 @@
-function initTutor(unit, root, { addReflection }) {
-  if (!root) return;
-
-  const stepList = root.querySelector('[data-role="tutor-steps"]');
-  const title = root.querySelector('[data-role="tutor-step-title"]');
-  const prompt = root.querySelector('[data-role="tutor-step-prompt"]');
-  const response = root.querySelector('[data-role="tutor-response"]');
-  const feedback = root.querySelector('[data-role="tutor-feedback"]');
-  const submit = root.querySelector('[data-role="tutor-submit"]');
-  const startBtn = root.querySelector('[data-role="start-tutor"]');
+function initTutor(unit, { addReflection }) {
+  const stepList = document.getElementById('tutorSteps');
+  const title = document.getElementById('currentStepTitle');
+  const prompt = document.getElementById('currentStepPrompt');
+  const response = document.getElementById('tutorResponse');
+  const feedback = document.getElementById('tutorFeedback');
+  const submit = document.getElementById('submitReflection');
+  const startBtn = document.getElementById('startTutor');
 
   if (!stepList || !title || !prompt || !response || !feedback || !submit || !startBtn) {
     return;
@@ -54,14 +52,12 @@ function initTutor(unit, root, { addReflection }) {
         .some((word) => userText.includes(word))
     ).length;
 
-    if (typeof addReflection === 'function') {
-      addReflection({
-        step: step.title,
-        timestamp: Date.now(),
-        response: response.value,
-        hits,
-      });
-    }
+    addReflection({
+      step: step.title,
+      timestamp: Date.now(),
+      response: response.value,
+      hits,
+    });
 
     const success = hits >= Math.max(1, Math.ceil(step.checkpoints.length * 0.6));
     const elaborativePrompt =
@@ -91,13 +87,11 @@ function initTutor(unit, root, { addReflection }) {
 
   startBtn.addEventListener('click', () => {
     showStep(0);
-    root.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelector('#tutor-mode')?.scrollIntoView({ behavior: 'smooth' });
   });
 
   stepList.addEventListener('click', (event) => {
-    const target = event.target;
-    if (!(target instanceof HTMLElement)) return;
-    const item = target.closest('li');
+    const item = event.target.closest('li');
     if (!item) return;
     const index = Array.from(stepList.children).indexOf(item);
     if (index >= 0) showStep(index);
