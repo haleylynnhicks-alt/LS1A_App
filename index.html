@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LS1A Study Companion</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="landing">
+    <div class="global-nav__mount" data-role="global-nav" data-home-url="index.html"></div>
+    <header class="site-header">
+      <h1>Life Sciences 1A Study Companion</h1>
+      <p>
+        Choose a chapter, midterm, or final workspace to open a full set of LS1A study tools. Every page now
+        includes preloaded readings, diagrams, practice drills, study guides, flashcards, practice sets,
+        tutor walkthroughs, and planning labs tailored to that unit.
+      </p>
+    </header>
+
+    <main class="landing__main">
+      <section class="landing__section">
+        <div class="landing__section-header">
+          <h2>Chapter Workspaces</h2>
+          <p>Deep dives for each textbook chapter.</p>
+        </div>
+        <div class="unit-grid" data-role="chapter-list" aria-live="polite"></div>
+      </section>
+
+      <section class="landing__section">
+        <div class="landing__section-header">
+          <h2>Assessments</h2>
+          <p>Guided prep for the midterm and final.</p>
+        </div>
+        <div class="unit-grid" data-role="assessment-list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Use the navigation bar to jump between chapters as you study. The built-in resource cards keep
+        everyone aligned on the same textbook excerpts, figures, and practice prompts.
+      </p>
+    </footer>
+
+    <script type="module" src="scripts/home.js"></script>
+  </body>
+</html>
