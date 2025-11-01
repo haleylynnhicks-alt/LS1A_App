@@ -1,6 +1,19 @@
+<<<<<<< HEAD
 const STORAGE_KEY = 'ls1a-study-companion-v3';
 
 const defaultContextState = {
+=======
+<<<<<<< HEAD
+const STORAGE_KEY = 'ls1a-study-companion-v3';
+
+const defaultContextState = {
+=======
+const STORAGE_KEY = 'ls1a-study-companion-v2';
+
+const defaultState = {
+  uploads: [],
+>>>>>>> main
+>>>>>>> main
   flashcards: [],
   reflections: [],
   flashcardProgress: {},
@@ -49,6 +62,13 @@ function ensureContext(namespace) {
     globalState.contexts[namespace] = {
       ...clone(defaultContextState),
       ...ctx,
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+      uploads: ctx.uploads ?? [],
+>>>>>>> main
+>>>>>>> main
       flashcards: ctx.flashcards ?? [],
       reflections: ctx.reflections ?? [],
       flashcardProgress: ctx.flashcardProgress ?? {},
@@ -83,6 +103,28 @@ function createStore(namespace) {
     });
   };
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+  function appendUploads(uploadList) {
+    context.uploads = [...uploadList, ...context.uploads];
+    notify();
+    return getUploads();
+  }
+
+  function removeUpload(addedAt) {
+    context.uploads = context.uploads.filter((item) => item.addedAt !== addedAt);
+    notify();
+    return getUploads();
+  }
+
+  function getUploads() {
+    return context.uploads.map((item) => ({ ...item }));
+  }
+
+>>>>>>> main
+>>>>>>> main
   function addFlashcard(card) {
     const newCard = {
       id: `user-${Date.now()}`,
@@ -222,6 +264,15 @@ function createStore(namespace) {
   }
 
   return {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+    appendUploads,
+    removeUpload,
+    getUploads,
+>>>>>>> main
+>>>>>>> main
     addFlashcard,
     getFlashcards,
     getFlashcardProgress,

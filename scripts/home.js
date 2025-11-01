@@ -1,5 +1,12 @@
 import { orderedUnits } from './data/unitData.js';
+<<<<<<< HEAD
 import { renderGlobalNav } from './components/navigation.js';
+=======
+<<<<<<< HEAD
+import { renderGlobalNav } from './components/navigation.js';
+=======
+>>>>>>> main
+>>>>>>> main
 
 function buildLinkForUnit(unit) {
   return unit.pagePath ?? `pages/${unit.id}.html`;
@@ -41,13 +48,28 @@ function createUnitCard(unit) {
 function renderLanding() {
   const chapterContainer = document.querySelector('[data-role="chapter-list"]');
   const assessmentContainer = document.querySelector('[data-role="assessment-list"]');
+<<<<<<< HEAD
   const navMount = document.querySelector('[data-role="global-nav"]');
+=======
+<<<<<<< HEAD
+  const navMount = document.querySelector('[data-role="global-nav"]');
+=======
+>>>>>>> main
+>>>>>>> main
   if (!chapterContainer || !assessmentContainer) {
     return;
   }
 
+<<<<<<< HEAD
   renderGlobalNav(navMount, { currentUnitId: null });
 
+=======
+<<<<<<< HEAD
+  renderGlobalNav(navMount, { currentUnitId: null });
+
+=======
+>>>>>>> main
+>>>>>>> main
   orderedUnits.forEach((unit) => {
     const card = createUnitCard(unit);
     if (unit.type === 'chapter') {

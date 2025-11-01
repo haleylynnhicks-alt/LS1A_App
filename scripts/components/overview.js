@@ -1,8 +1,21 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
 function renderOverview(unit, root = document) {
   const base = root instanceof Element ? root : document;
   const objectives = base.querySelector('[data-role="concept-objectives"]');
   const flow = base.querySelector('[data-role="concept-flow"]');
   const players = base.querySelector('[data-role="molecular-players"]');
+<<<<<<< HEAD
+=======
+=======
+function renderOverview(unit) {
+  const objectives = document.getElementById('conceptObjectives');
+  const flow = document.getElementById('conceptFlow');
+  const players = document.getElementById('molecularPlayers');
+>>>>>>> main
+>>>>>>> main
 
   if (!objectives || !flow || !players) {
     return;

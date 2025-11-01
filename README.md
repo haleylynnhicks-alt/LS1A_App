@@ -1,5 +1,9 @@
 # LS1A Study Companion
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
 Interactive, browser-based study environment tailored for Harvard's Life Sciences 1A course. Each workspace focuses on a single chapter (or assessment lab) and provides structured guidance, flashcards, adaptive practice, and experiment-driven reasoning tools.
 
 ## Features
@@ -7,6 +11,18 @@ Interactive, browser-based study environment tailored for Harvard's Life Science
 - **Unit overview cards** that surface core objectives, mechanistic flow, and molecular players.
 - **Curated resource library** with embedded textbook excerpts, diagrams, and practice drills for each chapter—no uploads required.
 - **Adaptive study guide generator** that weaves textbook anchors, your goals, and the curated resources into a shareable plan.
+<<<<<<< HEAD
+=======
+=======
+Interactive, browser-based study environment tailored for Harvard's Life Sciences 1A course. The first unit focuses on the lac operon and gene regulation, providing structured guidance, flashcards, adaptive practice, and experiment-driven reasoning tools.
+
+## Features
+- **Tabbed workspace** with dedicated environments for each chapter plus midterm/final integration labs.
+- **Unit overview cards** that surface core objectives, mechanistic flow, and molecular players.
+- **Drag & drop resource vault** for uploading lecture slides, practice problems, and notes to integrate with the study guide.
+- **Adaptive study guide generator** that weaves textbook anchors, your goals, and uploaded files into a shareable plan.
+>>>>>>> main
+>>>>>>> main
 - **Flashcards + spaced scheduler** to support retrieval practice, elaborative follow-ups, and your own mnemonic hooks.
 - **Interleaving studio** that mixes mechanistic, quantitative, and experimental strands into ready-made study loops.
 - **Elaboration lab** with rolling prompts for self-explanation and transfer questions.
@@ -40,6 +56,10 @@ Interactive, browser-based study environment tailored for Harvard's Life Science
      npx serve .
      ```
      Then visit the URL shown in the terminal (usually http://localhost:3000).
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
 3. **Explore a chapter workspace**
    - From the home page or the global navigation bar, choose a workspace card (e.g. Chapter 1, Midterm Lab) to open its dedicated page.
    - Review the **Resource Library** cards baked into each chapter to see annotated textbook segments, figures, and practice prompts.
@@ -52,6 +72,7 @@ Interactive, browser-based study environment tailored for Harvard's Life Science
 
 All progress (custom flashcards, mnemonics, interleaving history, reflections, planner streaks) lives in `localStorage`, so you can close the tab and return later without losing your work.
 
+<<<<<<< HEAD
 ## Deployment
 
 The repository now ships with an automated GitHub Pages workflow. Every push to the `work` branch triggers the `.github/workflows/deploy.yml` pipeline, which publishes the current snapshot to the `gh-pages` environment. If your site was previously pinned to the default `main` branch and therefore showed an outdated build, simply push or merge the latest changes into `work`; the action will bundle the static files from the repository root and redeploy them automatically.
@@ -60,6 +81,26 @@ If you prefer a different publishing branch, update the `branches` list inside t
 
 ## Extending the App
 - Add new units by duplicating the `unitData` structure in `scripts/data/unitData.js`, including interleaving strands, elaborative prompts, and mnemonic assets. Pair the new entry with a matching HTML shell in `pages/` (e.g. `pages/<unit-id>.html`) so it appears alongside the existing workspaces.
+=======
+## Extending the App
+- Add new units by duplicating the `unitData` structure in `scripts/data/unitData.js`, including interleaving strands, elaborative prompts, and mnemonic assets. Pair the new entry with a matching HTML shell in `pages/` (e.g. `pages/<unit-id>.html`) so it appears alongside the existing workspaces.
+=======
+3. **Load your materials**
+   - Pick a tab (e.g. Chapter 1, Midterm Lab) and drop PDFs, lecture slides, notes, or problem sets into that page’s **Resource Vault**—each tab keeps its own uploads, flashcards, mnemonics, planner streak, and interleaving history.
+   - Click **Generate Study Guide** inside the active tab to tailor the concept map to your goals.
+   - Use flashcards, practice tests, tutor mode, and the synthesis sandbox to reinforce mastery for that specific chapter or assessment.
+
+### Managing chapters & textbook uploads
+- **Upload per chapter for clarity.** Dropping a chapter’s slides or textbook pages into the matching tab keeps the study guide, flashcards, and planner scoped to just that content. It also avoids bloated resource lists when you only want to focus on one topic.
+- **Whole-textbook uploads are possible.** If you prefer one mega reference, use the Midterm or Final review tabs to hold cross-unit resources, then interleave chapters using the built-in mixes.
+- **Duplicate features per tab.** Every tab clones the same toolkit—resource vault, study guide builder, flashcards, practice quizzes, interleaving lab, mnemonics, tutor mode, planner, and synthesis sandbox—so you can run the same workflow without leaving the page.
+
+All progress (uploads, custom flashcards, mnemonics, interleaving history, reflections, planner streaks) lives in `localStorage`, so you can close the tab and return later without losing your work.
+
+## Extending the App
+- Add new units by duplicating the `unitData` structure in `scripts/data/unitData.js`, including interleaving strands, elaborative prompts, and mnemonic assets. Each entry automatically becomes a new tab.
+>>>>>>> main
+>>>>>>> main
 - Extend practice questions, flashcards, or planner guidance by appending to the relevant arrays in the same data file.
 - Style adjustments for new components can be made in `styles.css`.
 

@@ -9,7 +9,14 @@ import initInterleaving from '../components/interleaving.js';
 import initElaboration from '../components/elaboration.js';
 import initMnemonics from '../components/mnemonics.js';
 import initPlanner from '../components/planner.js';
+<<<<<<< HEAD
 import studyTemplate from './studyTemplate.js';
+=======
+<<<<<<< HEAD
+import studyTemplate from './studyTemplate.js';
+=======
+>>>>>>> main
+>>>>>>> main
 
 function populateHero(root, unit) {
   const title = root.querySelector('[data-role="unit-title"]');
@@ -23,9 +30,25 @@ function populateHero(root, unit) {
 }
 
 function createStudyPage(container, unit, store) {
+<<<<<<< HEAD
   if (!container || !unit) return;
 
   container.innerHTML = studyTemplate;
+=======
+<<<<<<< HEAD
+  if (!container || !unit) return;
+
+  container.innerHTML = studyTemplate;
+=======
+  const template = document.getElementById('study-page-template');
+  if (!template || !container || !unit) return;
+
+  container.innerHTML = '';
+  const fragment = template.content.cloneNode(true);
+  container.appendChild(fragment);
+
+>>>>>>> main
+>>>>>>> main
   const root = container.querySelector('.study-page');
   if (!root) {
     return;
@@ -33,8 +56,18 @@ function createStudyPage(container, unit, store) {
 
   populateHero(root, unit);
   renderOverview(unit, root);
+<<<<<<< HEAD
   initResourceVault(unit, root);
   initStudyGuide(unit, root, { getResources: () => unit.resources ?? [] });
+=======
+<<<<<<< HEAD
+  initResourceVault(unit, root);
+  initStudyGuide(unit, root, { getResources: () => unit.resources ?? [] });
+=======
+  initResourceVault(root, store);
+  initStudyGuide(unit, root, { getUploads: store.getUploads });
+>>>>>>> main
+>>>>>>> main
   initFlashcards(unit, root, {
     getFlashcards: store.getFlashcards,
     addFlashcard: store.addFlashcard,
