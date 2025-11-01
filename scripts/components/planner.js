@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function initPlanner(unit, root, { logStudySession, updateReminderPreferences, getPlannerState }) {
   if (!root) return;
 
@@ -16,6 +17,24 @@ function initPlanner(unit, root, { logStudySession, updateReminderPreferences, g
   const reminderList = root.querySelector('[data-role="planner-reminder-list"]');
   const badgeList = root.querySelector('[data-role="planner-badges"]');
   const xpRuleList = root.querySelector('[data-role="planner-xp-rules"]');
+=======
+function initPlanner(unit, { logStudySession, updateReminderPreferences, getPlannerState }) {
+  const form = document.getElementById('plannerForm');
+  const durationField = document.getElementById('plannerDuration');
+  const focusField = document.getElementById('plannerFocus');
+  const interleaveField = document.getElementById('plannerInterleave');
+  const restField = document.getElementById('plannerRest');
+  const feedback = document.getElementById('plannerFeedback');
+  const historyList = document.getElementById('plannerHistory');
+  const streakBadge = document.getElementById('plannerStreak');
+  const reminderToggle = document.getElementById('plannerReminders');
+  const xpBadge = document.getElementById('plannerXp');
+  const pacingList = document.getElementById('plannerPacing');
+  const wellbeingList = document.getElementById('plannerWellbeing');
+  const reminderList = document.getElementById('plannerReminderList');
+  const badgeList = document.getElementById('plannerBadges');
+  const xpRuleList = document.getElementById('plannerXpRules');
+>>>>>>> main
 
   if (
     !form ||
@@ -56,7 +75,10 @@ function initPlanner(unit, root, { logStudySession, updateReminderPreferences, g
   }
 
   function renderState() {
+<<<<<<< HEAD
     if (typeof getPlannerState !== 'function') return;
+=======
+>>>>>>> main
     const planner = getPlannerState();
     streakBadge.textContent = `${planner.streak} day streak`;
     reminderToggle.checked = planner.remindersEnabled;
@@ -100,18 +122,26 @@ function initPlanner(unit, root, { logStudySession, updateReminderPreferences, g
       xp,
       loggedAt: Date.now(),
     };
+<<<<<<< HEAD
     if (typeof logStudySession === 'function') {
       logStudySession(session);
     }
+=======
+    logStudySession(session);
+>>>>>>> main
     feedback.textContent = `Logged! Keep the streak going — that was worth ${xp} XP.`;
     form.reset();
     renderState();
   });
 
   reminderToggle.addEventListener('change', () => {
+<<<<<<< HEAD
     if (typeof updateReminderPreferences === 'function') {
       updateReminderPreferences(reminderToggle.checked);
     }
+=======
+    updateReminderPreferences(reminderToggle.checked);
+>>>>>>> main
   });
 
   renderGuidance();

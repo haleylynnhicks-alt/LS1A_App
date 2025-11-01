@@ -10,7 +10,11 @@ const studyTemplate = `
         </div>
       </div>
       <div class="hero__meta">
+<<<<<<< HEAD
         <div class="chip">Curated Resources</div>
+=======
+        <div class="chip">Smart Uploads</div>
+>>>>>>> main
         <div class="chip">Interleaved Practice</div>
         <div class="chip">Mnemonic &amp; Visual Labs</div>
       </div>
@@ -31,6 +35,7 @@ const studyTemplate = `
       </div>
     </section>
 
+<<<<<<< HEAD
     <section class="panel" aria-labelledby="resource-library">
       <div class="panel__header">
         <h3 id="resource-library">Chapter Resource Library</h3>
@@ -41,14 +46,36 @@ const studyTemplate = `
         </p>
       </div>
       <div class="resource-library" data-role="resource-library" aria-live="polite"></div>
+=======
+    <section class="panel" aria-labelledby="resource-uploader">
+      <div class="panel__header">
+        <h3 id="resource-uploader">Drag &amp; Drop Resources</h3>
+        <p>
+          Drop lecture slides, handwritten notes, practice problems, textbook annotations, or video
+          transcripts. We'll index the files and map them to the LS1A framework so you can revisit them
+          during quizzes and tutoring.
+        </p>
+      </div>
+      <div class="uploader" data-role="drop-zone" role="button" tabindex="0">
+        <span class="uploader__icon">⬆️</span>
+        <p>Drag files here or click to upload</p>
+        <input type="file" data-role="file-input" multiple aria-label="Upload files" />
+      </div>
+      <ul class="uploader__list" data-role="uploaded-list" aria-live="polite"></ul>
+>>>>>>> main
     </section>
 
     <section class="panel" aria-labelledby="study-guide">
       <div class="panel__header">
         <h3 id="study-guide">Adaptive Study Guide Builder</h3>
         <p>
+<<<<<<< HEAD
           Mix the curated checkpoints with your own goals to build a guide that explains what happens
           first, next, and last — plus the reasons underneath.
+=======
+          Mix your files with our prompts to build a study guide that explains what happens first, next,
+          and last, plus the reasons underneath.
+>>>>>>> main
         </p>
       </div>
       <div class="study-guide">
