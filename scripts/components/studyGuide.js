@@ -1,0 +1,224 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
+function initStudyGuide(unit, root, { getResources }) {
+  if (!root) return;
+
+  const generateBtn = root.querySelector('[data-role="generate-guide"]');
+  const output = root.querySelector('[data-role="study-guide-output"]');
+  const notesField = root.querySelector('[data-role="custom-notes"]');
+  const goalField = root.querySelector('[data-role="learning-goal"]');
+  const exportBtn = root.querySelector('[data-role="export-guide"]');
+<<<<<<< HEAD
+=======
+=======
+function initStudyGuide(unit, getUploads) {
+  const generateBtn = document.getElementById('generateGuide');
+  const output = document.getElementById('studyGuideOutput');
+  const notesField = document.getElementById('customNotes');
+  const goalField = document.getElementById('learningGoal');
+  const exportBtn = document.getElementById('exportGuide');
+>>>>>>> main
+>>>>>>> main
+
+  if (!generateBtn || !output || !notesField || !goalField || !exportBtn) {
+    return;
+  }
+
+  function buildGuide() {
+    const goal = goalField.value.trim();
+    const notes = notesField.value.trim();
+
+<<<<<<< HEAD
+    const resources = typeof getResources === 'function' ? getResources() : [];
+    const resourceList = resources
+      .map((item) => `• ${item.title || item.label || 'Resource'}${item.estimatedTime ? ` — ${item.estimatedTime}` : ''}`)
+=======
+<<<<<<< HEAD
+    const resources = typeof getResources === 'function' ? getResources() : [];
+    const resourceList = resources
+      .map((item) => `• ${item.title || item.label || 'Resource'}${item.estimatedTime ? ` — ${item.estimatedTime}` : ''}`)
+=======
+    const resources = getUploads()
+      .map((item) => `• ${item.name} (${new Date(item.addedAt).toLocaleDateString()})`)
+>>>>>>> main
+>>>>>>> main
+      .join('<br/>');
+
+    const combos = unit.interleaving?.comboTemplates ?? [];
+    const prompts = unit.elaborativePrompts ?? [];
+    const mnemonic = unit.mnemonicDevices?.keyTerms?.[0];
+
+    const studyPlan = `
+      <section>
+        <h4>Focus Goal</h4>
+<<<<<<< HEAD
+        <p>${goal || unit.defaultGoal || 'Solidify the key story arc for this chapter.'}</p>
+=======
+<<<<<<< HEAD
+        <p>${goal || unit.defaultGoal || 'Solidify the key story arc for this chapter.'}</p>
+=======
+        <p>${goal || 'Solidify qualitative and quantitative control of the lac operon.'}</p>
+>>>>>>> main
+>>>>>>> main
+      </section>
+      <section>
+        <h4>Concept Backbone</h4>
+        <ol>
+<<<<<<< HEAD
+          ${(unit.conceptFlow?.steps ?? [])
+=======
+<<<<<<< HEAD
+          ${(unit.conceptFlow?.steps ?? [])
+=======
+          ${unit.conceptFlow.steps
+>>>>>>> main
+>>>>>>> main
+            .map((step) => `<li><strong>${step.heading}:</strong> ${step.detail}</li>`)
+            .join('')}
+        </ol>
+      </section>
+      <section>
+        <h4>Mechanistic Deep Dive</h4>
+        <ul>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
+          ${(unit.anchorNotes ?? []).map((note) => `<li>${note}</li>`).join('')}
+        </ul>
+      </section>
+      ${(unit.studyEvidence ?? [])
+        .map(
+          (item) => `
+            <section>
+              <h4>${item.heading}</h4>
+              <p>${item.detail}</p>
+            </section>
+          `
+        )
+        .join('')}
+<<<<<<< HEAD
+=======
+=======
+          ${unit.anchorNotes.map((note) => `<li>${note}</li>`).join('')}
+        </ul>
+      </section>
+      <section>
+        <h4>Experimental Evidence to Review</h4>
+        <ul>
+          <li>Revisit EMSA setup and interpret K<sub>D</sub> using binding curves.</li>
+          <li>Sketch CAP–cAMP bend and RNA polymerase recruitment geometry.</li>
+          <li>Draw AND gate matrix for glucose/lactose combinations plus one mutation.</li>
+        </ul>
+      </section>
+>>>>>>> main
+>>>>>>> main
+      ${
+        combos.length
+          ? `<section>
+              <h4>Interleaving Circuit</h4>
+              <p>Alternate between these strands in 20-minute bursts:</p>
+              <ul>
+                ${combos
+                  .map(
+                    (combo) => `
+                      <li>
+                        <strong>${combo.title}:</strong> ${combo.rationale}
+                        <br/><em>Self-explain:</em> ${combo.selfExplanation}
+                      </li>
+                    `
+                  )
+                  .join('')}
+              </ul>
+            </section>`
+          : ''
+      }
+      ${
+        prompts.length
+          ? `<section>
+              <h4>Elaborative Questions</h4>
+              <ol>
+                ${prompts
+                  .map(
+                    (prompt) => `
+                      <li>
+                        <p>${prompt.question}</p>
+                        <ul>${prompt.followUps.map((item) => `<li>${item}</li>`).join('')}</ul>
+                      </li>
+                    `
+                  )
+                  .join('')}
+              </ol>
+            </section>`
+          : ''
+      }
+      ${
+        mnemonic
+          ? `<section>
+              <h4>Mnemonic to Rehearse</h4>
+              <p><strong>${mnemonic.term}</strong> — ${mnemonic.device}</p>
+              <p class="hint">${mnemonic.usage}</p>
+            </section>`
+          : ''
+      }
+      <section>
+        <h4>Your Resources</h4>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
+        <p>${
+          resourceList ||
+          'Review the chapter resource library above to connect figures and examples to each checkpoint.'
+        }</p>
+<<<<<<< HEAD
+=======
+=======
+        <p>${resources || 'Add lecture slides or notes to contextualize these checkpoints.'}</p>
+>>>>>>> main
+>>>>>>> main
+      </section>
+      <section>
+        <h4>Reflection Prompts</h4>
+        <ul>
+<<<<<<< HEAD
+          ${(unit.reflectionPrompts ?? []).map((prompt) => `<li>${prompt}</li>`).join('')}
+=======
+<<<<<<< HEAD
+          ${(unit.reflectionPrompts ?? []).map((prompt) => `<li>${prompt}</li>`).join('')}
+=======
+          <li>Explain how inducer binding shifts the LacI conformational equilibrium.</li>
+          <li>Quantitatively relate EMSA data to binding constants.</li>
+          <li>Predict transcription outcomes for lacI-null, lacO<sup>-</sup>, and cyaA-null mutants.</li>
+>>>>>>> main
+>>>>>>> main
+        </ul>
+      </section>
+      ${notes ? `<section><h4>Your Notes</h4><p>${notes}</p></section>` : ''}
+    `;
+
+    output.innerHTML = studyPlan;
+  }
+
+  generateBtn.addEventListener('click', () => {
+    buildGuide();
+    output.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  exportBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(output.innerText.trim());
+      exportBtn.textContent = 'Copied!';
+      setTimeout(() => (exportBtn.textContent = 'Copy to Clipboard'), 2000);
+    } catch (error) {
+      exportBtn.textContent = 'Copy failed';
+      console.error('Clipboard error', error);
+    }
+  });
+
+  buildGuide();
+}
+
+export default initStudyGuide;
