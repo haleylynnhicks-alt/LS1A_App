@@ -1,14 +1,14 @@
 :root {
   color-scheme: light;
-  --bg: #f5f7fb;
+  --bg: #fff5f5;
   --surface: #ffffff;
-  --surface-alt: #f1f4ff;
-  --primary: #5a4ff3;
-  --primary-dark: #4335c7;
+  --surface-alt: #ffecec;
+  --primary: #e53935;
+  --primary-dark: #b71c1c;
   --secondary: #f5974f;
   --text: #1f2333;
   --text-muted: #4d5677;
-  --border: #d8def0;
+  --border: #f3c8c8;
   --success: #2f9c5a;
   --danger: #d64565;
   font-size: 16px;
@@ -48,7 +48,7 @@ main {
 
 .hero {
   padding: 4rem 1.5rem 3rem;
-  background: radial-gradient(circle at top left, #edeaff, #cdd6ff 70%);
+  background: radial-gradient(circle at top left, #ffe9e9, #ffcdd2 70%);
   display: grid;
   gap: 2rem;
 }
@@ -93,7 +93,7 @@ main {
 }
 
 .btn:focus-visible {
-  outline: 3px solid rgba(67, 53, 199, 0.4);
+  outline: 3px solid rgba(183, 28, 28, 0.4);
   outline-offset: 3px;
 }
 
@@ -104,7 +104,7 @@ main {
 .btn--primary {
   background: var(--primary);
   color: #fff;
-  box-shadow: 0 10px 20px rgba(90, 79, 243, 0.2);
+  box-shadow: 0 10px 20px rgba(229, 57, 53, 0.2);
 }
 
 .btn--secondary {
