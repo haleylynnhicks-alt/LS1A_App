@@ -1,17 +1,23 @@
 import { shuffle } from '../utils/formatters.js';
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
 function initPractice(unit, root) {
   if (!root) return;
 
   const form = root.querySelector('[data-role="practice-form"]');
   const results = root.querySelector('[data-role="practice-results"]');
   const elaboration = root.querySelector('[data-role="practice-elaboration"]');
+<<<<<<< HEAD
+=======
 =======
 function initPractice(unit) {
   const form = document.getElementById('practiceForm');
   const results = document.getElementById('practiceResults');
   const elaboration = document.getElementById('practiceElaboration');
+>>>>>>> main
 >>>>>>> main
 
   if (!form || !results) {
@@ -19,6 +25,9 @@ function initPractice(unit) {
   }
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
   const questions = unit.practiceQuestions ?? [];
   const QUESTIONS_PER_ROUND = Math.min(4, questions.length || 0) || questions.length || 0;
   let pendingQuestions = shuffle([...questions]);
@@ -33,6 +42,8 @@ function initPractice(unit) {
       pendingQuestions = shuffle([...questions]);
     }
     activeQuestions = pendingQuestions.splice(0, QUESTIONS_PER_ROUND || questions.length);
+<<<<<<< HEAD
+=======
 =======
   const QUESTIONS_PER_ROUND = Math.min(4, unit.practiceQuestions.length);
   let pendingQuestions = shuffle([...unit.practiceQuestions]);
@@ -44,18 +55,25 @@ function initPractice(unit) {
     }
     activeQuestions = pendingQuestions.splice(0, QUESTIONS_PER_ROUND);
 >>>>>>> main
+>>>>>>> main
   }
 
   function renderQuiz() {
     drawNextSet();
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
     if (!activeQuestions.length) {
       form.innerHTML = '<p class="empty">Add practice questions to this chapter to generate quizzes.</p>';
       return;
     }
 
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
 >>>>>>> main
     form.innerHTML =
       activeQuestions
@@ -99,6 +117,11 @@ function initPractice(unit) {
     if (!activeQuestions.length) return;
 
 =======
+<<<<<<< HEAD
+    if (!activeQuestions.length) return;
+
+=======
+>>>>>>> main
 >>>>>>> main
     const formData = new FormData(form);
     let correct = 0;
@@ -113,6 +136,9 @@ function initPractice(unit) {
         if (isCorrect) correct += 1;
         feedback.push(
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
           `<p><strong>${question.prompt}</strong><br>${
             isCorrect ? '✅ Correct.' : '❌ Not quite.'
           } ${question.explanation}</p>`
@@ -131,6 +157,8 @@ function initPractice(unit) {
             .join(' ')}<br>You addressed <strong>${rubricHits}</strong> of ${
             question.rubric?.length ?? 0
           } key ideas.</p>`
+<<<<<<< HEAD
+=======
 =======
       `<p><strong>${question.prompt}</strong><br>${
         isCorrect ? '✅ Correct.' : '❌ Not quite.'
@@ -146,6 +174,7 @@ function initPractice(unit) {
           `<p><strong>${question.prompt}</strong><br>Look for: ${question.rubric
             .map((point) => `<span class="chip">${point}</span>`)
             .join(' ')}<br>You addressed <strong>${rubricHits}</strong> of ${question.rubric.length} key ideas.</p>`
+>>>>>>> main
 >>>>>>> main
         );
       }

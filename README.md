@@ -1,6 +1,9 @@
 # LS1A Study Companion
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
 Interactive, browser-based study environment tailored for Harvard's Life Sciences 1A course. Each workspace focuses on a single chapter (or assessment lab) and provides structured guidance, flashcards, adaptive practice, and experiment-driven reasoning tools.
 
 ## Features
@@ -8,6 +11,8 @@ Interactive, browser-based study environment tailored for Harvard's Life Science
 - **Unit overview cards** that surface core objectives, mechanistic flow, and molecular players.
 - **Curated resource library** with embedded textbook excerpts, diagrams, and practice drills for each chapter—no uploads required.
 - **Adaptive study guide generator** that weaves textbook anchors, your goals, and the curated resources into a shareable plan.
+<<<<<<< HEAD
+=======
 =======
 Interactive, browser-based study environment tailored for Harvard's Life Sciences 1A course. The first unit focuses on the lac operon and gene regulation, providing structured guidance, flashcards, adaptive practice, and experiment-driven reasoning tools.
 
@@ -16,6 +21,7 @@ Interactive, browser-based study environment tailored for Harvard's Life Science
 - **Unit overview cards** that surface core objectives, mechanistic flow, and molecular players.
 - **Drag & drop resource vault** for uploading lecture slides, practice problems, and notes to integrate with the study guide.
 - **Adaptive study guide generator** that weaves textbook anchors, your goals, and uploaded files into a shareable plan.
+>>>>>>> main
 >>>>>>> main
 - **Flashcards + spaced scheduler** to support retrieval practice, elaborative follow-ups, and your own mnemonic hooks.
 - **Interleaving studio** that mixes mechanistic, quantitative, and experimental strands into ready-made study loops.
@@ -51,6 +57,9 @@ Interactive, browser-based study environment tailored for Harvard's Life Science
      ```
      Then visit the URL shown in the terminal (usually http://localhost:3000).
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
 3. **Explore a chapter workspace**
    - From the home page or the global navigation bar, choose a workspace card (e.g. Chapter 1, Midterm Lab) to open its dedicated page.
    - Review the **Resource Library** cards baked into each chapter to see annotated textbook segments, figures, and practice prompts.
@@ -63,6 +72,16 @@ Interactive, browser-based study environment tailored for Harvard's Life Science
 
 All progress (custom flashcards, mnemonics, interleaving history, reflections, planner streaks) lives in `localStorage`, so you can close the tab and return later without losing your work.
 
+<<<<<<< HEAD
+## Deployment
+
+The repository now ships with an automated GitHub Pages workflow. Every push to the `work` branch triggers the `.github/workflows/deploy.yml` pipeline, which publishes the current snapshot to the `gh-pages` environment. If your site was previously pinned to the default `main` branch and therefore showed an outdated build, simply push or merge the latest changes into `work`; the action will bundle the static files from the repository root and redeploy them automatically.
+
+If you prefer a different publishing branch, update the `branches` list inside the workflow or adjust the GitHub Pages settings to track the generated `gh-pages` branch.
+
+## Extending the App
+- Add new units by duplicating the `unitData` structure in `scripts/data/unitData.js`, including interleaving strands, elaborative prompts, and mnemonic assets. Pair the new entry with a matching HTML shell in `pages/` (e.g. `pages/<unit-id>.html`) so it appears alongside the existing workspaces.
+=======
 ## Extending the App
 - Add new units by duplicating the `unitData` structure in `scripts/data/unitData.js`, including interleaving strands, elaborative prompts, and mnemonic assets. Pair the new entry with a matching HTML shell in `pages/` (e.g. `pages/<unit-id>.html`) so it appears alongside the existing workspaces.
 =======
@@ -80,6 +99,7 @@ All progress (uploads, custom flashcards, mnemonics, interleaving history, refle
 
 ## Extending the App
 - Add new units by duplicating the `unitData` structure in `scripts/data/unitData.js`, including interleaving strands, elaborative prompts, and mnemonic assets. Each entry automatically becomes a new tab.
+>>>>>>> main
 >>>>>>> main
 - Extend practice questions, flashcards, or planner guidance by appending to the relevant arrays in the same data file.
 - Style adjustments for new components can be made in `styles.css`.

@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
 function renderHighlights(highlights) {
   if (!Array.isArray(highlights) || !highlights.length) {
     return '';
@@ -72,6 +75,8 @@ function initResourceVault(unit, root) {
   }
 
   container.innerHTML = resources.map((resource) => renderResource(resource)).join('');
+<<<<<<< HEAD
+=======
 =======
 import { appendUploads, removeUpload, getUploads } from '../state/store.js';
 
@@ -165,6 +170,7 @@ function initResourceVault() {
   });
 
   renderUploads();
+>>>>>>> main
 >>>>>>> main
 }
 

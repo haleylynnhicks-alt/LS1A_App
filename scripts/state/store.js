@@ -3,10 +3,16 @@ const STORAGE_KEY = 'ls1a-study-companion-v3';
 
 const defaultContextState = {
 =======
+<<<<<<< HEAD
+const STORAGE_KEY = 'ls1a-study-companion-v3';
+
+const defaultContextState = {
+=======
 const STORAGE_KEY = 'ls1a-study-companion-v2';
 
 const defaultState = {
   uploads: [],
+>>>>>>> main
 >>>>>>> main
   flashcards: [],
   reflections: [],
@@ -58,7 +64,10 @@ function ensureContext(namespace) {
       ...ctx,
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
       uploads: ctx.uploads ?? [],
+>>>>>>> main
 >>>>>>> main
       flashcards: ctx.flashcards ?? [],
       reflections: ctx.reflections ?? [],
@@ -96,6 +105,8 @@ function createStore(namespace) {
 
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
   function appendUploads(uploadList) {
     context.uploads = [...uploadList, ...context.uploads];
     notify();
@@ -112,6 +123,7 @@ function createStore(namespace) {
     return context.uploads.map((item) => ({ ...item }));
   }
 
+>>>>>>> main
 >>>>>>> main
   function addFlashcard(card) {
     const newCard = {
@@ -254,9 +266,12 @@ function createStore(namespace) {
   return {
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
     appendUploads,
     removeUpload,
     getUploads,
+>>>>>>> main
 >>>>>>> main
     addFlashcard,
     getFlashcards,

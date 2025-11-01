@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
 function initMnemonics(unit, root, { addCustomMnemonic, getCustomMnemonics }) {
   if (!root) return;
 
@@ -10,6 +13,8 @@ function initMnemonics(unit, root, { addCustomMnemonic, getCustomMnemonics }) {
   const customList = root.querySelector('[data-role="mnemonic-custom-list"]');
   const conceptMapCanvas = root.querySelector('[data-role="concept-map-canvas"]');
   const conceptMapDetails = root.querySelector('[data-role="concept-map-details"]');
+<<<<<<< HEAD
+=======
 =======
 function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
   const keyTermList = document.getElementById('mnemonicKeyTerms');
@@ -20,6 +25,7 @@ function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
   const customList = document.getElementById('mnemonicCustomList');
   const conceptMapCanvas = document.getElementById('conceptMapCanvas');
   const conceptMapDetails = document.getElementById('conceptMapDetails');
+>>>>>>> main
 >>>>>>> main
 
   if (
@@ -67,11 +73,17 @@ function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
 
   function renderCustom() {
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
     if (typeof getCustomMnemonics !== 'function') {
       customList.innerHTML = '<li class="empty">Custom mnemonics will appear here.</li>';
       return;
     }
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
 >>>>>>> main
     const items = getCustomMnemonics();
     customList.innerHTML = items.length
@@ -93,6 +105,10 @@ function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
 <<<<<<< HEAD
     if (!nodes.length) return [];
 =======
+<<<<<<< HEAD
+    if (!nodes.length) return [];
+=======
+>>>>>>> main
 >>>>>>> main
     const radius = Math.min(width, height) / 2 - 40;
     return nodes.map((node, index) => {
@@ -111,6 +127,9 @@ function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
     const svgNS = 'http://www.w3.org/2000/svg';
     conceptMapCanvas.innerHTML = '';
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
 
     if (!nodes.length) {
       conceptMapCanvas.innerHTML = '<p class="empty">Add concept map nodes for this chapter.</p>';
@@ -119,7 +138,10 @@ function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
       return;
     }
 
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> main
 >>>>>>> main
     const svg = document.createElementNS(svgNS, 'svg');
     svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
@@ -166,7 +188,13 @@ function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
       if (!(target instanceof Element)) return;
       const nodeGroup = target.closest('.concept-map__node');
 =======
+<<<<<<< HEAD
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const nodeGroup = target.closest('.concept-map__node');
+=======
       const nodeGroup = event.target.closest('.concept-map__node');
+>>>>>>> main
 >>>>>>> main
       if (!nodeGroup) return;
       const nodeId = nodeGroup.dataset.nodeId;
@@ -195,7 +223,11 @@ function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
 <<<<<<< HEAD
     if (!term || !phrase || typeof addCustomMnemonic !== 'function') return;
 =======
+<<<<<<< HEAD
+    if (!term || !phrase || typeof addCustomMnemonic !== 'function') return;
+=======
     if (!term || !phrase) return;
+>>>>>>> main
 >>>>>>> main
     addCustomMnemonic({ term, phrase, addedAt: Date.now() });
     form.reset();

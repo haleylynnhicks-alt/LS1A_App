@@ -13,7 +13,11 @@ const studyTemplate = `
 <<<<<<< HEAD
         <div class="chip">Curated Resources</div>
 =======
+<<<<<<< HEAD
+        <div class="chip">Curated Resources</div>
+=======
         <div class="chip">Smart Uploads</div>
+>>>>>>> main
 >>>>>>> main
         <div class="chip">Interleaved Practice</div>
         <div class="chip">Mnemonic &amp; Visual Labs</div>
@@ -36,6 +40,9 @@ const studyTemplate = `
     </section>
 
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
     <section class="panel" aria-labelledby="resource-library">
       <div class="panel__header">
         <h3 id="resource-library">Chapter Resource Library</h3>
@@ -46,6 +53,8 @@ const studyTemplate = `
         </p>
       </div>
       <div class="resource-library" data-role="resource-library" aria-live="polite"></div>
+<<<<<<< HEAD
+=======
 =======
     <section class="panel" aria-labelledby="resource-uploader">
       <div class="panel__header">
@@ -63,6 +72,7 @@ const studyTemplate = `
       </div>
       <ul class="uploader__list" data-role="uploaded-list" aria-live="polite"></ul>
 >>>>>>> main
+>>>>>>> main
     </section>
 
     <section class="panel" aria-labelledby="study-guide">
@@ -73,8 +83,13 @@ const studyTemplate = `
           Mix the curated checkpoints with your own goals to build a guide that explains what happens
           first, next, and last — plus the reasons underneath.
 =======
+<<<<<<< HEAD
+          Mix the curated checkpoints with your own goals to build a guide that explains what happens
+          first, next, and last — plus the reasons underneath.
+=======
           Mix your files with our prompts to build a study guide that explains what happens first, next,
           and last, plus the reasons underneath.
+>>>>>>> main
 >>>>>>> main
         </p>
       </div>

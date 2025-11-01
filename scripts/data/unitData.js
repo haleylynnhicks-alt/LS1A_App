@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
 const unitList = [
   {
     id: 'chapter-lac-operon',
@@ -1817,6 +1820,8 @@ const unitsById = unitList.reduce((acc, unit) => {
 
 export const orderedUnits = unitList;
 export default unitsById;
+<<<<<<< HEAD
+=======
 =======
 const unitData = {
   title: 'The Lac Operon and Gene Regulation',
@@ -2308,4 +2313,5 @@ const unitData = {
 };
 
 export default unitData;
+>>>>>>> main
 >>>>>>> main

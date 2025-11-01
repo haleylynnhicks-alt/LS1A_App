@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
 function initPlanner(unit, root, { logStudySession, updateReminderPreferences, getPlannerState }) {
   if (!root) return;
 
@@ -17,6 +20,8 @@ function initPlanner(unit, root, { logStudySession, updateReminderPreferences, g
   const reminderList = root.querySelector('[data-role="planner-reminder-list"]');
   const badgeList = root.querySelector('[data-role="planner-badges"]');
   const xpRuleList = root.querySelector('[data-role="planner-xp-rules"]');
+<<<<<<< HEAD
+=======
 =======
 function initPlanner(unit, { logStudySession, updateReminderPreferences, getPlannerState }) {
   const form = document.getElementById('plannerForm');
@@ -34,6 +39,7 @@ function initPlanner(unit, { logStudySession, updateReminderPreferences, getPlan
   const reminderList = document.getElementById('plannerReminderList');
   const badgeList = document.getElementById('plannerBadges');
   const xpRuleList = document.getElementById('plannerXpRules');
+>>>>>>> main
 >>>>>>> main
 
   if (
@@ -78,6 +84,10 @@ function initPlanner(unit, { logStudySession, updateReminderPreferences, getPlan
 <<<<<<< HEAD
     if (typeof getPlannerState !== 'function') return;
 =======
+<<<<<<< HEAD
+    if (typeof getPlannerState !== 'function') return;
+=======
+>>>>>>> main
 >>>>>>> main
     const planner = getPlannerState();
     streakBadge.textContent = `${planner.streak} day streak`;
@@ -127,7 +137,13 @@ function initPlanner(unit, { logStudySession, updateReminderPreferences, getPlan
       logStudySession(session);
     }
 =======
+<<<<<<< HEAD
+    if (typeof logStudySession === 'function') {
+      logStudySession(session);
+    }
+=======
     logStudySession(session);
+>>>>>>> main
 >>>>>>> main
     feedback.textContent = `Logged! Keep the streak going — that was worth ${xp} XP.`;
     form.reset();
@@ -140,7 +156,13 @@ function initPlanner(unit, { logStudySession, updateReminderPreferences, getPlan
       updateReminderPreferences(reminderToggle.checked);
     }
 =======
+<<<<<<< HEAD
+    if (typeof updateReminderPreferences === 'function') {
+      updateReminderPreferences(reminderToggle.checked);
+    }
+=======
     updateReminderPreferences(reminderToggle.checked);
+>>>>>>> main
 >>>>>>> main
   });
 

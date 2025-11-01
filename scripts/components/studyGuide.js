@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
 function initStudyGuide(unit, root, { getResources }) {
   if (!root) return;
 
@@ -7,6 +10,8 @@ function initStudyGuide(unit, root, { getResources }) {
   const notesField = root.querySelector('[data-role="custom-notes"]');
   const goalField = root.querySelector('[data-role="learning-goal"]');
   const exportBtn = root.querySelector('[data-role="export-guide"]');
+<<<<<<< HEAD
+=======
 =======
 function initStudyGuide(unit, getUploads) {
   const generateBtn = document.getElementById('generateGuide');
@@ -14,6 +19,7 @@ function initStudyGuide(unit, getUploads) {
   const notesField = document.getElementById('customNotes');
   const goalField = document.getElementById('learningGoal');
   const exportBtn = document.getElementById('exportGuide');
+>>>>>>> main
 >>>>>>> main
 
   if (!generateBtn || !output || !notesField || !goalField || !exportBtn) {
@@ -29,8 +35,14 @@ function initStudyGuide(unit, getUploads) {
     const resourceList = resources
       .map((item) => `• ${item.title || item.label || 'Resource'}${item.estimatedTime ? ` — ${item.estimatedTime}` : ''}`)
 =======
+<<<<<<< HEAD
+    const resources = typeof getResources === 'function' ? getResources() : [];
+    const resourceList = resources
+      .map((item) => `• ${item.title || item.label || 'Resource'}${item.estimatedTime ? ` — ${item.estimatedTime}` : ''}`)
+=======
     const resources = getUploads()
       .map((item) => `• ${item.name} (${new Date(item.addedAt).toLocaleDateString()})`)
+>>>>>>> main
 >>>>>>> main
       .join('<br/>');
 
@@ -44,7 +56,11 @@ function initStudyGuide(unit, getUploads) {
 <<<<<<< HEAD
         <p>${goal || unit.defaultGoal || 'Solidify the key story arc for this chapter.'}</p>
 =======
+<<<<<<< HEAD
+        <p>${goal || unit.defaultGoal || 'Solidify the key story arc for this chapter.'}</p>
+=======
         <p>${goal || 'Solidify qualitative and quantitative control of the lac operon.'}</p>
+>>>>>>> main
 >>>>>>> main
       </section>
       <section>
@@ -53,7 +69,11 @@ function initStudyGuide(unit, getUploads) {
 <<<<<<< HEAD
           ${(unit.conceptFlow?.steps ?? [])
 =======
+<<<<<<< HEAD
+          ${(unit.conceptFlow?.steps ?? [])
+=======
           ${unit.conceptFlow.steps
+>>>>>>> main
 >>>>>>> main
             .map((step) => `<li><strong>${step.heading}:</strong> ${step.detail}</li>`)
             .join('')}
@@ -63,6 +83,9 @@ function initStudyGuide(unit, getUploads) {
         <h4>Mechanistic Deep Dive</h4>
         <ul>
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
           ${(unit.anchorNotes ?? []).map((note) => `<li>${note}</li>`).join('')}
         </ul>
       </section>
@@ -76,6 +99,8 @@ function initStudyGuide(unit, getUploads) {
           `
         )
         .join('')}
+<<<<<<< HEAD
+=======
 =======
           ${unit.anchorNotes.map((note) => `<li>${note}</li>`).join('')}
         </ul>
@@ -88,6 +113,7 @@ function initStudyGuide(unit, getUploads) {
           <li>Draw AND gate matrix for glucose/lactose combinations plus one mutation.</li>
         </ul>
       </section>
+>>>>>>> main
 >>>>>>> main
       ${
         combos.length
@@ -140,12 +166,18 @@ function initStudyGuide(unit, getUploads) {
       <section>
         <h4>Your Resources</h4>
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> main
         <p>${
           resourceList ||
           'Review the chapter resource library above to connect figures and examples to each checkpoint.'
         }</p>
+<<<<<<< HEAD
+=======
 =======
         <p>${resources || 'Add lecture slides or notes to contextualize these checkpoints.'}</p>
+>>>>>>> main
 >>>>>>> main
       </section>
       <section>
@@ -154,9 +186,13 @@ function initStudyGuide(unit, getUploads) {
 <<<<<<< HEAD
           ${(unit.reflectionPrompts ?? []).map((prompt) => `<li>${prompt}</li>`).join('')}
 =======
+<<<<<<< HEAD
+          ${(unit.reflectionPrompts ?? []).map((prompt) => `<li>${prompt}</li>`).join('')}
+=======
           <li>Explain how inducer binding shifts the LacI conformational equilibrium.</li>
           <li>Quantitatively relate EMSA data to binding constants.</li>
           <li>Predict transcription outcomes for lacI-null, lacO<sup>-</sup>, and cyaA-null mutants.</li>
+>>>>>>> main
 >>>>>>> main
         </ul>
       </section>

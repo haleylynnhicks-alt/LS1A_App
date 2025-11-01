@@ -12,6 +12,10 @@ import initPlanner from '../components/planner.js';
 <<<<<<< HEAD
 import studyTemplate from './studyTemplate.js';
 =======
+<<<<<<< HEAD
+import studyTemplate from './studyTemplate.js';
+=======
+>>>>>>> main
 >>>>>>> main
 
 function populateHero(root, unit) {
@@ -31,6 +35,11 @@ function createStudyPage(container, unit, store) {
 
   container.innerHTML = studyTemplate;
 =======
+<<<<<<< HEAD
+  if (!container || !unit) return;
+
+  container.innerHTML = studyTemplate;
+=======
   const template = document.getElementById('study-page-template');
   if (!template || !container || !unit) return;
 
@@ -38,6 +47,7 @@ function createStudyPage(container, unit, store) {
   const fragment = template.content.cloneNode(true);
   container.appendChild(fragment);
 
+>>>>>>> main
 >>>>>>> main
   const root = container.querySelector('.study-page');
   if (!root) {
@@ -50,8 +60,13 @@ function createStudyPage(container, unit, store) {
   initResourceVault(unit, root);
   initStudyGuide(unit, root, { getResources: () => unit.resources ?? [] });
 =======
+<<<<<<< HEAD
+  initResourceVault(unit, root);
+  initStudyGuide(unit, root, { getResources: () => unit.resources ?? [] });
+=======
   initResourceVault(root, store);
   initStudyGuide(unit, root, { getUploads: store.getUploads });
+>>>>>>> main
 >>>>>>> main
   initFlashcards(unit, root, {
     getFlashcards: store.getFlashcards,

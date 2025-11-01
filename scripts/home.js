@@ -2,6 +2,10 @@ import { orderedUnits } from './data/unitData.js';
 <<<<<<< HEAD
 import { renderGlobalNav } from './components/navigation.js';
 =======
+<<<<<<< HEAD
+import { renderGlobalNav } from './components/navigation.js';
+=======
+>>>>>>> main
 >>>>>>> main
 
 function buildLinkForUnit(unit) {
@@ -47,6 +51,10 @@ function renderLanding() {
 <<<<<<< HEAD
   const navMount = document.querySelector('[data-role="global-nav"]');
 =======
+<<<<<<< HEAD
+  const navMount = document.querySelector('[data-role="global-nav"]');
+=======
+>>>>>>> main
 >>>>>>> main
   if (!chapterContainer || !assessmentContainer) {
     return;
@@ -56,6 +64,11 @@ function renderLanding() {
   renderGlobalNav(navMount, { currentUnitId: null });
 
 =======
+<<<<<<< HEAD
+  renderGlobalNav(navMount, { currentUnitId: null });
+
+=======
+>>>>>>> main
 >>>>>>> main
   orderedUnits.forEach((unit) => {
     const card = createUnitCard(unit);

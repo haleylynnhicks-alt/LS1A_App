@@ -1,9 +1,20 @@
+<<<<<<< HEAD
+function initElaboration(unit, root) {
+  if (!root) return;
+
+  const promptSelect = root.querySelector('[data-role="elaboration-select"]');
+  const rollBtn = root.querySelector('[data-role="elaboration-roll"]');
+  const promptDetails = root.querySelector('[data-role="elaboration-details"]');
+  const followUpList = root.querySelector('[data-role="elaboration-followups"]');
+  const reflectionBox = root.querySelector('[data-role="elaboration-reflection"]');
+=======
 function initElaboration(unit) {
   const promptSelect = document.getElementById('elaborationSelect');
   const rollBtn = document.getElementById('elaborationRoll');
   const promptDetails = document.getElementById('elaborationDetails');
   const followUpList = document.getElementById('elaborationFollowUps');
   const reflectionBox = document.getElementById('elaborationReflection');
+>>>>>>> main
 
   if (!promptSelect || !rollBtn || !promptDetails || !followUpList || !reflectionBox) {
     return;
@@ -19,9 +30,13 @@ function initElaboration(unit) {
 
   function displayPrompt(prompt) {
     promptDetails.textContent = prompt.question;
+<<<<<<< HEAD
+    followUpList.innerHTML = prompt.followUps.map((item) => `<li>${item}</li>`).join('');
+=======
     followUpList.innerHTML = prompt.followUps
       .map((item) => `<li>${item}</li>`)
       .join('');
+>>>>>>> main
     reflectionBox.placeholder = 'Write your explanation here. Aim for 3-4 sentences linking concepts together.';
   }
 
@@ -44,6 +59,13 @@ function initElaboration(unit) {
   if (prompts.length) {
     renderSelect();
     displayPrompt(prompts[0]);
+<<<<<<< HEAD
+  } else {
+    promptDetails.textContent = 'Add elaborative prompts to this chapter to get started.';
+    followUpList.innerHTML = '';
+    reflectionBox.placeholder = 'Use this space to explain the concept in your own words.';
+=======
+>>>>>>> main
   }
 }
 
