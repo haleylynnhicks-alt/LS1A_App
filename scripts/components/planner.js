@@ -1,3 +1,23 @@
+<<<<<<< HEAD
+function initPlanner(unit, root, { logStudySession, updateReminderPreferences, getPlannerState }) {
+  if (!root) return;
+
+  const form = root.querySelector('[data-role="planner-form"]');
+  const durationField = root.querySelector('[data-role="planner-duration"]');
+  const focusField = root.querySelector('[data-role="planner-focus"]');
+  const interleaveField = root.querySelector('[data-role="planner-interleave"]');
+  const restField = root.querySelector('[data-role="planner-rest"]');
+  const feedback = root.querySelector('[data-role="planner-feedback"]');
+  const historyList = root.querySelector('[data-role="planner-history"]');
+  const streakBadge = root.querySelector('[data-role="planner-streak"]');
+  const reminderToggle = root.querySelector('[data-role="planner-reminders"]');
+  const xpBadge = root.querySelector('[data-role="planner-xp"]');
+  const pacingList = root.querySelector('[data-role="planner-pacing"]');
+  const wellbeingList = root.querySelector('[data-role="planner-wellbeing"]');
+  const reminderList = root.querySelector('[data-role="planner-reminder-list"]');
+  const badgeList = root.querySelector('[data-role="planner-badges"]');
+  const xpRuleList = root.querySelector('[data-role="planner-xp-rules"]');
+=======
 function initPlanner(unit, { logStudySession, updateReminderPreferences, getPlannerState }) {
   const form = document.getElementById('plannerForm');
   const durationField = document.getElementById('plannerDuration');
@@ -14,6 +34,7 @@ function initPlanner(unit, { logStudySession, updateReminderPreferences, getPlan
   const reminderList = document.getElementById('plannerReminderList');
   const badgeList = document.getElementById('plannerBadges');
   const xpRuleList = document.getElementById('plannerXpRules');
+>>>>>>> main
 
   if (
     !form ||
@@ -54,6 +75,10 @@ function initPlanner(unit, { logStudySession, updateReminderPreferences, getPlan
   }
 
   function renderState() {
+<<<<<<< HEAD
+    if (typeof getPlannerState !== 'function') return;
+=======
+>>>>>>> main
     const planner = getPlannerState();
     streakBadge.textContent = `${planner.streak} day streak`;
     reminderToggle.checked = planner.remindersEnabled;
@@ -97,14 +122,26 @@ function initPlanner(unit, { logStudySession, updateReminderPreferences, getPlan
       xp,
       loggedAt: Date.now(),
     };
+<<<<<<< HEAD
+    if (typeof logStudySession === 'function') {
+      logStudySession(session);
+    }
+=======
     logStudySession(session);
+>>>>>>> main
     feedback.textContent = `Logged! Keep the streak going — that was worth ${xp} XP.`;
     form.reset();
     renderState();
   });
 
   reminderToggle.addEventListener('change', () => {
+<<<<<<< HEAD
+    if (typeof updateReminderPreferences === 'function') {
+      updateReminderPreferences(reminderToggle.checked);
+    }
+=======
     updateReminderPreferences(reminderToggle.checked);
+>>>>>>> main
   });
 
   renderGuidance();

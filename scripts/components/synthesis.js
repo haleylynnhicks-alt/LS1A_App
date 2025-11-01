@@ -1,8 +1,18 @@
+<<<<<<< HEAD
+function initSynthesis(unit, root) {
+  if (!root) return;
+
+  const glucose = root.querySelector('[data-role="glucose-level"]');
+  const lactose = root.querySelector('[data-role="lactose-level"]');
+  const mutation = root.querySelector('[data-role="mutation-select"]');
+  const output = root.querySelector('[data-role="synthesis-output"]');
+=======
 function initSynthesis() {
   const glucose = document.getElementById('glucoseLevel');
   const lactose = document.getElementById('lactoseLevel');
   const mutation = document.getElementById('mutations');
   const output = document.getElementById('synthesisOutput');
+>>>>>>> main
 
   if (!glucose || !lactose || !mutation || !output) {
     return;
@@ -33,8 +43,13 @@ function initSynthesis() {
     }
 
     const highExpression =
+<<<<<<< HEAD
+      (repression === 'relieved' || repression === 'absent' || repression.startsWith('disabled')) &&
+      activation === 'enabled';
+=======
       (repression === 'relieved' || repression === 'absent' ||
         repression.startsWith('disabled')) && activation === 'enabled';
+>>>>>>> main
 
     return {
       repression,
@@ -57,11 +72,15 @@ function initSynthesis() {
   }
 
   function render() {
+<<<<<<< HEAD
+    const status = computeOutcome(Number(glucose.value), Number(lactose.value), mutation.value);
+=======
     const status = computeOutcome(
       Number(glucose.value),
       Number(lactose.value),
       mutation.value
     );
+>>>>>>> main
 
     output.innerHTML = `
       <p><strong>Repressor state:</strong> ${status.repression}</p>

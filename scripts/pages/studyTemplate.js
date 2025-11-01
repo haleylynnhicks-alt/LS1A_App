@@ -10,7 +10,11 @@ const studyTemplate = `
         </div>
       </div>
       <div class="hero__meta">
+<<<<<<< HEAD
+        <div class="chip">Curated Resources</div>
+=======
         <div class="chip">Smart Uploads</div>
+>>>>>>> main
         <div class="chip">Interleaved Practice</div>
         <div class="chip">Mnemonic &amp; Visual Labs</div>
       </div>
@@ -31,6 +35,18 @@ const studyTemplate = `
       </div>
     </section>
 
+<<<<<<< HEAD
+    <section class="panel" aria-labelledby="resource-library">
+      <div class="panel__header">
+        <h3 id="resource-library">Chapter Resource Library</h3>
+        <p>
+          Review the curated textbook segments, figures, and practice prompts we embedded for this unit.
+          Each item includes guided commentary so you can connect the evidence to the main storyline
+          without uploading anything.
+        </p>
+      </div>
+      <div class="resource-library" data-role="resource-library" aria-live="polite"></div>
+=======
     <section class="panel" aria-labelledby="resource-uploader">
       <div class="panel__header">
         <h3 id="resource-uploader">Drag &amp; Drop Resources</h3>
@@ -46,14 +62,20 @@ const studyTemplate = `
         <input type="file" data-role="file-input" multiple aria-label="Upload files" />
       </div>
       <ul class="uploader__list" data-role="uploaded-list" aria-live="polite"></ul>
+>>>>>>> main
     </section>
 
     <section class="panel" aria-labelledby="study-guide">
       <div class="panel__header">
         <h3 id="study-guide">Adaptive Study Guide Builder</h3>
         <p>
+<<<<<<< HEAD
+          Mix the curated checkpoints with your own goals to build a guide that explains what happens
+          first, next, and last — plus the reasons underneath.
+=======
           Mix your files with our prompts to build a study guide that explains what happens first, next,
           and last, plus the reasons underneath.
+>>>>>>> main
         </p>
       </div>
       <div class="study-guide">

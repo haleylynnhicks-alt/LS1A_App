@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+function initMnemonics(unit, root, { addCustomMnemonic, getCustomMnemonics }) {
+  if (!root) return;
+
+  const keyTermList = root.querySelector('[data-role="mnemonic-key-terms"]');
+  const imageryList = root.querySelector('[data-role="mnemonic-imagery"]');
+  const form = root.querySelector('[data-role="mnemonic-form"]');
+  const termField = root.querySelector('[data-role="mnemonic-term"]');
+  const phraseField = root.querySelector('[data-role="mnemonic-phrase"]');
+  const customList = root.querySelector('[data-role="mnemonic-custom-list"]');
+  const conceptMapCanvas = root.querySelector('[data-role="concept-map-canvas"]');
+  const conceptMapDetails = root.querySelector('[data-role="concept-map-details"]');
+=======
 function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
   const keyTermList = document.getElementById('mnemonicKeyTerms');
   const imageryList = document.getElementById('mnemonicImagery');
@@ -7,6 +20,7 @@ function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
   const customList = document.getElementById('mnemonicCustomList');
   const conceptMapCanvas = document.getElementById('conceptMapCanvas');
   const conceptMapDetails = document.getElementById('conceptMapDetails');
+>>>>>>> main
 
   if (
     !keyTermList ||
@@ -52,6 +66,13 @@ function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
   }
 
   function renderCustom() {
+<<<<<<< HEAD
+    if (typeof getCustomMnemonics !== 'function') {
+      customList.innerHTML = '<li class="empty">Custom mnemonics will appear here.</li>';
+      return;
+    }
+=======
+>>>>>>> main
     const items = getCustomMnemonics();
     customList.innerHTML = items.length
       ? items
@@ -69,6 +90,10 @@ function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
 
   function layoutNodes(width, height) {
     const nodes = conceptMap.nodes;
+<<<<<<< HEAD
+    if (!nodes.length) return [];
+=======
+>>>>>>> main
     const radius = Math.min(width, height) / 2 - 40;
     return nodes.map((node, index) => {
       const angle = (2 * Math.PI * index) / nodes.length;
@@ -85,6 +110,17 @@ function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
 
     const svgNS = 'http://www.w3.org/2000/svg';
     conceptMapCanvas.innerHTML = '';
+<<<<<<< HEAD
+
+    if (!nodes.length) {
+      conceptMapCanvas.innerHTML = '<p class="empty">Add concept map nodes for this chapter.</p>';
+      conceptMapDetails.innerHTML =
+        '<p>Once nodes are defined, click them to see how they connect and narrate the cause → effect story.</p>';
+      return;
+    }
+
+=======
+>>>>>>> main
     const svg = document.createElementNS(svgNS, 'svg');
     svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
 
@@ -125,7 +161,13 @@ function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
     });
 
     svg.addEventListener('click', (event) => {
+<<<<<<< HEAD
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const nodeGroup = target.closest('.concept-map__node');
+=======
       const nodeGroup = event.target.closest('.concept-map__node');
+>>>>>>> main
       if (!nodeGroup) return;
       const nodeId = nodeGroup.dataset.nodeId;
       const node = nodes.find((item) => item.id === nodeId);
@@ -150,7 +192,11 @@ function initMnemonics(unit, { addCustomMnemonic, getCustomMnemonics }) {
     event.preventDefault();
     const term = termField.value.trim();
     const phrase = phraseField.value.trim();
+<<<<<<< HEAD
+    if (!term || !phrase || typeof addCustomMnemonic !== 'function') return;
+=======
     if (!term || !phrase) return;
+>>>>>>> main
     addCustomMnemonic({ term, phrase, addedAt: Date.now() });
     form.reset();
     renderCustom();
