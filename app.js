@@ -211,6 +211,218 @@ const unitData = {
   ],
 };
 
+const VISUAL_COLORS = ['var(--primary)', '#ef5350', '#f5974f', '#ffa94d'];
+const DONUT_CIRCUMFERENCE = 2 * Math.PI * 52;
+
+function escapeHtml(value) {
+  if (value == null) return '';
+  return String(value).replace(/[&<>"']/g, (char) => {
+    switch (char) {
+      case '&':
+        return '&amp;';
+      case '<':
+        return '&lt;';
+      case '>':
+        return '&gt;';
+      case '"':
+        return '&quot;';
+      case "'":
+        return '&#39;';
+      default:
+        return char;
+    }
+  });
+}
+
+function firstSentence(text) {
+  if (!text) return '';
+  const withoutTags = text.replace(/<[^>]+>/g, '');
+  const clean = withoutTags.replace(/\s+/g, ' ').trim();
+  const match = clean.match(/([^.!?]+[.!?])/);
+  return match ? match[1] : clean;
+}
+
+function formatUploadType(type) {
+  if (!type) return 'Other';
+  const [group] = type.split('/');
+  switch (group) {
+    case 'application':
+      return 'Documents';
+    case 'image':
+      return 'Images';
+    case 'video':
+      return 'Videos';
+    case 'audio':
+      return 'Audio';
+    case 'text':
+      return 'Notes';
+    default:
+      return group.charAt(0).toUpperCase() + group.slice(1);
+  }
+}
+
+function buildUploadVisual(files) {
+  if (!files.length) {
+    return `
+      <div class="panel-visual panel-visual--empty">
+        <p>Add resources to see your mix visualized.</p>
+        <div class="panel-visual__placeholder" aria-hidden="true">
+          <span class="panel-visual__placeholder-bar"></span>
+          <span class="panel-visual__placeholder-bar"></span>
+          <span class="panel-visual__placeholder-bar"></span>
+        </div>
+      </div>
+    `;
+  }
+
+  const totals = files.reduce((acc, file) => {
+    const key = formatUploadType(file.type || 'other');
+    acc[key] = (acc[key] || 0) + 1;
+    return acc;
+  }, {});
+
+  const entries = Object.entries(totals).sort((a, b) => b[1] - a[1]);
+  const totalCount = files.length;
+
+  const segments = entries
+    .map(([, count], index) => {
+      const color = VISUAL_COLORS[index % VISUAL_COLORS.length];
+      return `<div class="stacked-bar__segment" style="flex:${count};background:${color}" aria-hidden="true"></div>`;
+    })
+    .join('');
+
+  const legend = entries
+    .map(([type, count], index) => {
+      const color = VISUAL_COLORS[index % VISUAL_COLORS.length];
+      return `<li><span class="legend-swatch" style="background:${color}"></span>${escapeHtml(type)} • ${count}</li>`;
+    })
+    .join('');
+
+  return `
+    <div class="panel-visual" role="group" aria-label="Uploaded resource mix">
+      <div class="panel-visual__metric">
+        <span class="panel-visual__value">${totalCount}</span>
+        <span class="panel-visual__label">files curated</span>
+      </div>
+      <div class="stacked-bar" aria-hidden="true">${segments}</div>
+      <ul class="panel-visual__legend">${legend}</ul>
+    </div>
+  `;
+}
+
+function buildStudyGuideVisual(goal, resourceCount) {
+  const focus = goal ? escapeHtml(goal) : 'Lac operon control logic';
+  const resourceLabel = resourceCount === 1 ? 'resource' : 'resources';
+  const timeline = unitData.conceptFlow.steps
+    .map((step, index) => {
+      const heading = escapeHtml(step.heading);
+      const summary = escapeHtml(firstSentence(step.detail));
+      return `
+        <li class="timeline__item">
+          <span class="timeline__dot">${index + 1}</span>
+          <div>
+            <strong>${heading}</strong>
+            <p>${summary}</p>
+          </div>
+        </li>
+      `;
+    })
+    .join('');
+
+  return `
+    <div class="panel-visual" role="group" aria-label="Study guide roadmap">
+      <div>
+        <span class="panel-visual__label">Today's focus</span>
+        <p class="panel-visual__headline">${focus}</p>
+      </div>
+      <ol class="timeline">${timeline}</ol>
+      <p class="panel-visual__footnote">${resourceCount} linked ${resourceLabel}.</p>
+    </div>
+  `;
+}
+
+function buildFlashcardVisual(totalCards, customCards) {
+  const safeTotal = Math.max(totalCards, 0);
+  const ratio = safeTotal ? customCards / safeTotal : 0;
+  const percent = Math.round(ratio * 100);
+  const offset = (DONUT_CIRCUMFERENCE - DONUT_CIRCUMFERENCE * ratio).toFixed(2);
+
+  return `
+    <div class="panel-visual" role="group" aria-label="Flashcard deck progress">
+      <div class="donut">
+        <svg viewBox="0 0 120 120">
+          <circle class="donut__track" cx="60" cy="60" r="52"></circle>
+          <circle class="donut__progress" cx="60" cy="60" r="52" stroke-dasharray="${DONUT_CIRCUMFERENCE.toFixed(
+            2
+          )}" stroke-dashoffset="${offset}"></circle>
+          <text class="donut__value" x="60" y="66">${percent}%</text>
+        </svg>
+      </div>
+      <div class="panel-visual__legend">
+        <p><strong>${customCards}</strong> custom cards</p>
+        <p>${safeTotal} total prompts</p>
+      </div>
+    </div>
+  `;
+}
+
+function buildPracticeVisual({ accuracy, total, correct }) {
+  if (!total) {
+    return `
+      <div class="panel-visual panel-visual--empty">
+        <p>Complete the quiz to unlock your accuracy chart.</p>
+        <div class="panel-visual__placeholder" aria-hidden="true">
+          <span class="panel-visual__placeholder-bar"></span>
+          <span class="panel-visual__placeholder-bar"></span>
+          <span class="panel-visual__placeholder-bar"></span>
+        </div>
+      </div>
+    `;
+  }
+
+  const safeAccuracy = Math.min(Math.max(accuracy, 0), 100);
+  const label = total === 1 ? 'question' : 'questions';
+
+  return `
+    <div class="panel-visual" role="img" aria-label="Practice accuracy ${safeAccuracy}% with ${correct} correct out of ${total} ${label}">
+      <div class="panel-visual__metric">
+        <span class="panel-visual__value">${safeAccuracy}%</span>
+        <span class="panel-visual__label">accuracy</span>
+      </div>
+      <div class="bar-chart" aria-hidden="true">
+        <div class="bar-chart__fill" style="width:${safeAccuracy}%"></div>
+      </div>
+      <p class="panel-visual__footnote">${correct} of ${total} ${label} correct.</p>
+    </div>
+  `;
+}
+
+function buildTutorVisual(activeIndex) {
+  const timeline = unitData.tutorSteps
+    .map((step, index) => {
+      const checkpoints = step.checkpoints
+        .slice(0, 2)
+        .map((checkpoint) => escapeHtml(checkpoint))
+        .join(' • ');
+      return `
+        <li class="timeline__item" data-active="${index === activeIndex}">
+          <span class="timeline__dot">${index + 1}</span>
+          <div>
+            <strong>${escapeHtml(step.title)}</strong>
+            <p>${checkpoints}</p>
+          </div>
+        </li>
+      `;
+    })
+    .join('');
+
+  return `
+    <div class="panel-visual" role="group" aria-label="Tutor checkpoints overview">
+      <ol class="timeline timeline--compact">${timeline}</ol>
+    </div>
+  `;
+}
+
 const state = loadState();
 
 function loadState() {
@@ -239,13 +451,81 @@ function renderOverview() {
   const flow = document.getElementById('conceptFlow');
   const players = document.getElementById('molecularPlayers');
 
+  const objectiveCount = unitData.objectives.length;
+  const objectiveTarget = Math.max(4, objectiveCount);
+  const objectiveRatio = Math.min(objectiveCount / objectiveTarget, 1);
+  const objectiveOffset = (
+    DONUT_CIRCUMFERENCE - DONUT_CIRCUMFERENCE * objectiveRatio
+  ).toFixed(2);
+  const objectiveLabel = objectiveCount === 1 ? 'objective' : 'objectives';
+
+  const flowSteps = unitData.conceptFlow.steps.length;
+  const flowCoords = unitData.conceptFlow.steps.map((_, index) => {
+    const ratio = flowSteps === 1 ? 0 : index / (flowSteps - 1);
+    const x = (20 + ratio * 160).toFixed(1);
+    const y = (80 - Math.sin(ratio * Math.PI) * 30).toFixed(1);
+    return { x, y, index };
+  });
+  const flowPolyline = flowCoords.length
+    ? flowCoords.map(({ x, y }) => `${x},${y}`).join(' ')
+    : '20,80';
+  const flowMarkers = flowCoords
+    .map(({ x, y, index }) => {
+      const labelY = (Number(y) + 4).toFixed(1);
+      return `
+        <g>
+          <circle cx="${x}" cy="${y}" r="14" fill="var(--surface)" stroke="var(--secondary)" stroke-width="6"></circle>
+          <text x="${x}" y="${labelY}" text-anchor="middle" font-size="12" fill="var(--primary-dark)">${index + 1}</text>
+        </g>
+      `;
+    })
+    .join('');
+
+  const moleculeVisual = `
+    <figure class="mini-chart" role="group" aria-labelledby="molecule-network-title">
+      <svg viewBox="0 0 200 120" role="img" aria-labelledby="molecule-network-title">
+        <title id="molecule-network-title">Interactions between regulatory proteins, DNA, and metabolites</title>
+        <line x1="100" y1="30" x2="40" y2="90" stroke="var(--primary)" stroke-width="6" stroke-linecap="round"></line>
+        <line x1="100" y1="30" x2="160" y2="90" stroke="var(--secondary)" stroke-width="6" stroke-linecap="round"></line>
+        <line x1="40" y1="90" x2="160" y2="90" stroke="var(--border)" stroke-width="6" stroke-linecap="round"></line>
+        <circle cx="100" cy="30" r="18" fill="var(--surface)" stroke="var(--primary-dark)" stroke-width="5"></circle>
+        <circle cx="40" cy="90" r="16" fill="var(--surface)" stroke="var(--primary)" stroke-width="5"></circle>
+        <circle cx="160" cy="90" r="16" fill="var(--surface)" stroke="var(--secondary)" stroke-width="5"></circle>
+        <text x="100" y="35" text-anchor="middle" font-size="12" fill="var(--primary-dark)">DNA</text>
+        <text x="40" y="95" text-anchor="middle" font-size="11" fill="var(--primary-dark)">Proteins</text>
+        <text x="160" y="95" text-anchor="middle" font-size="11" fill="var(--primary-dark)">Signals</text>
+      </svg>
+      <figcaption>Protein-DNA-signal network</figcaption>
+    </figure>
+  `;
+
   objectives.innerHTML = `
     <h3>Learning Objectives</h3>
+    <figure class="mini-chart" role="group" aria-labelledby="objective-chart-title objective-chart-desc">
+      <svg viewBox="0 0 120 120" role="img" aria-labelledby="objective-chart-title objective-chart-desc">
+        <title id="objective-chart-title">Learning objective coverage</title>
+        <desc id="objective-chart-desc">${objectiveCount} key objectives emphasized in this unit</desc>
+        <circle class="mini-chart__track" cx="60" cy="60" r="52"></circle>
+        <circle class="mini-chart__progress" cx="60" cy="60" r="52" stroke-dasharray="${DONUT_CIRCUMFERENCE.toFixed(
+          2
+        )}" stroke-dashoffset="${objectiveOffset}"></circle>
+        <text class="mini-chart__value" x="60" y="66">${objectiveCount}</text>
+      </svg>
+      <figcaption>${objectiveCount} ${objectiveLabel}</figcaption>
+    </figure>
     <ul>${unitData.objectives.map((o) => `<li>${o}</li>`).join('')}</ul>
   `;
 
   flow.innerHTML = `
     <h3>${unitData.conceptFlow.title}</h3>
+    <figure class="mini-chart" role="group" aria-labelledby="flow-diagram-title">
+      <svg viewBox="0 0 200 120" role="img" aria-labelledby="flow-diagram-title">
+        <title id="flow-diagram-title">Mechanistic flow across ${flowSteps} stages</title>
+        <polyline points="${flowPolyline}" fill="none" stroke="var(--primary)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"></polyline>
+        ${flowMarkers}
+      </svg>
+      <figcaption>Mechanistic sequence</figcaption>
+    </figure>
     <ol class="flow-list">
       ${unitData.conceptFlow.steps
         .map(
@@ -266,6 +546,7 @@ function renderOverview() {
 
   players.innerHTML = `
     <h3>Molecular Cast</h3>
+    ${moleculeVisual}
     ${unitData.molecularPlayers
       .map(
         (group) => `
@@ -283,6 +564,7 @@ function setupUploader() {
   const dropZone = document.getElementById('dropZone');
   const fileInput = document.getElementById('fileInput');
   const list = document.getElementById('uploadedList');
+  const visual = document.getElementById('uploaderVisual');
 
   function addFiles(files) {
     const mapped = Array.from(files).map((file) => ({
@@ -299,6 +581,7 @@ function setupUploader() {
   function renderUploads() {
     if (!state.uploads.length) {
       list.innerHTML = '<li class="uploader__item">No resources yet. Drop files to start curating your study vault.</li>';
+      if (visual) visual.innerHTML = buildUploadVisual([]);
       return;
     }
 
@@ -317,6 +600,8 @@ function setupUploader() {
         `;
       })
       .join('');
+
+    if (visual) visual.innerHTML = buildUploadVisual(state.uploads);
   }
 
   function handleRemove(event) {
@@ -366,6 +651,7 @@ function setupStudyGuide() {
   const notesField = document.getElementById('customNotes');
   const goalField = document.getElementById('learningGoal');
   const exportBtn = document.getElementById('exportGuide');
+  const visual = document.getElementById('studyGuideVisual');
 
   function buildGuide() {
     const goal = goalField.value.trim();
@@ -418,6 +704,7 @@ function setupStudyGuide() {
     `;
 
     output.innerHTML = studyPlan;
+    if (visual) visual.innerHTML = buildStudyGuideVisual(goal, state.uploads.length);
   }
 
   generateBtn.addEventListener('click', () => {
@@ -444,6 +731,7 @@ function setupFlashcards() {
   const form = document.getElementById('flashcardForm');
   const promptField = document.getElementById('flashcardPrompt');
   const answerField = document.getElementById('flashcardAnswer');
+  const visual = document.getElementById('flashcardVisual');
 
   function allCards() {
     return [...unitData.flashcards, ...state.flashcards];
@@ -468,6 +756,8 @@ function setupFlashcards() {
         `
       )
       .join('');
+
+    if (visual) visual.innerHTML = buildFlashcardVisual(allCards().length, state.flashcards.length);
   }
 
   deck.addEventListener('click', (event) => {
@@ -493,6 +783,7 @@ function setupFlashcards() {
 function setupPractice() {
   const form = document.getElementById('practiceForm');
   const results = document.getElementById('practiceResults');
+  const visual = document.getElementById('practiceVisual');
 
   form.innerHTML = unitData.practiceQuestions
     .map((question, index) => {
@@ -525,6 +816,12 @@ function setupPractice() {
     })
     .join('') +
     '<button class="btn btn--primary" type="submit">Check Answers</button>';
+
+  function renderPracticeVisual(payload) {
+    if (visual) visual.innerHTML = buildPracticeVisual(payload);
+  }
+
+  renderPracticeVisual({ accuracy: 0, total: 0, correct: 0 });
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -564,6 +861,8 @@ function setupPractice() {
       <div class="practice__feedback">${feedback.join('')}</div>
     `;
     results.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    renderPracticeVisual({ accuracy, total, correct });
   });
 }
 
@@ -575,8 +874,13 @@ function setupTutor() {
   const feedback = document.getElementById('tutorFeedback');
   const submit = document.getElementById('submitReflection');
   const startBtn = document.getElementById('startTutor');
+  const visual = document.getElementById('tutorVisual');
 
   let currentIndex = 0;
+
+  function renderVisual() {
+    if (visual) visual.innerHTML = buildTutorVisual(currentIndex);
+  }
 
   function renderList() {
     stepList.innerHTML = unitData.tutorSteps
@@ -589,6 +893,8 @@ function setupTutor() {
         `
       )
       .join('');
+
+    renderVisual();
   }
 
   function showStep(index) {
